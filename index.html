@@ -1,1 +1,89 @@
-<script></script><!-- Start writing your project code in this file! -->
+<meta name="color-scheme" content="dark">
+<h1  style="text-align:center; color:blue;" > HANGMAN GAME</h1>
+
+<h1 id="welcomeMessage" ; style="text-align:center;"><br><br>Welcome to play <span style="color:blue;">HANGMAN</span>  word guessing game<br><br></h1>
+<center>
+<button id="timeBased" style="color:red;"><span style=" font-size:20px;">Time based game</span><br> Time linmit 2 minutes</button>
+<button id="withoutTime" style="color:red;"><span style=" font-size:20px;">Without Time</span> <br>No time limit</button>
+</center>
+<div id="randomWord" style="text-align:center;"></div>
+<div id="hint" style="display:none;text-align:center;">
+ <button style="padding:10px;color:yellow;">Hint</button>
+</div>
+ <div id="alphabets" style="text-align:center;" ></div>
+ 
+ 
+<script>
+
+var time=document.getElementById("timeBased");
+time.addEventListener("click",timeBased);
+var timeless=document.getElementById("withoutTime");
+timeless.addEventListener("click",withoutTime);
+
+
+//creating function for time based game
+function timeBased(){
+    //displaying welcome message
+    document.getElementById("welcomeMessage").innerHTML="Welcome to time based ⏲️  Hangman Game<br><br><br><br>";
+    document.getElementById("hint").style.display="block";
+    //hiding all other buttons
+    document.getElementById("timeBased").style.display="none";
+    document.getElementById("withoutTime").style.display="none";
+    
+    showKeypad();
+    
+}
+    function showKeypad(){
+    var alphabets=document.getElementById("alphabets");
+    //creating buttons for alphabets.ASCII value of a=65 and z=90
+    for(var i=65;i<=90;i++){
+        //converting ASCII values to string
+        var letters = String.fromCharCode(i);
+        var alphaButtons=document.createElement("button");
+        //writing letters on buttons
+        alphaButtons.innerHTML=letters;
+        //setting colour of letters to blue
+        alphaButtons.style.color= "blue";
+        ////setting font size of letters to 20px
+        alphaButtons.style.fontSize= "20px";
+        //inner spacing
+        alphaButtons.style.padding= "10px";
+        //outer spacing
+        alphaButtons.style.margin= "10px";
+        //button colour
+        alphaButtons.style.backgroundColor= "white";
+        //shown on html page
+        alphabets.appendChild(alphaButtons);
+        //after displaying 9 buttons move to next line
+        if(i==73 || i==82 ){
+             alphabets.appendChild(document.createElement("br"));
+        }
+    }
+}
+
+//creating function for game without time limit
+function withoutTime(){
+    //displaying welcome message
+    document.getElementById("welcomeMessage").innerHTML="Welcome to Hangman Game.Take your time to guess.NO TIME STRESS🥳<br><br><br><br>";
+    //hiding all other buttons
+    document.getElementById("timeBased").style.display="none";
+    document.getElementById("withoutTime").style.display="none";
+     showKeypad();
+     document.getElementById("hint").style.display="block";
+     wordsDisplay();
+}
+
+function wordsDisplay(){
+    var arr=["rainbow","sunlight","pizza"];
+    var random= Math.floor(Math.random()*3);
+    console.log(random);
+    console.log(arr[random]);
+    var letter=arr[random];
+    var num=letter.length;
+    console.log(num);
+    for(var i=0;i<num;i++){
+    document.getElementById("randomWord").innerHTML +="-";
+    }
+}
+
+</script><!-- Start writing your project code in this file! -->
