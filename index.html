@@ -35,6 +35,7 @@ function timeBased(){
     document.getElementById("withoutTime").style.display="none";
     
     showKeypad();
+    wordsDisplay();
     
 }
     function showKeypad(){
@@ -121,10 +122,12 @@ function wordChecking(char){
 //}
 if(!guessedWord.includes("-")){
     console.log("you win word was;" ,randomWord);
+    document.getElementById("alphabets").innerHTML+= "<br><br>" +"You guessed the right word";
     disableButtons();
 }
 else if(hint<=0) {
     console.log("you lose word was;" ,randomWord);
+     document.getElementById("alphabets").innerHTML+= "<br><br>" +"You lose...The word is " +randomWord;
     disableButtons();
 }
     /*for(var i=0;i<num;i++){
