@@ -74,16 +74,51 @@ function withoutTime(){
 }
 
 function wordsDisplay(){
+    var hint=6;
     var arr=["rainbow","sunlight","pizza"];
-    var random= Math.floor(Math.random()*3);
-    console.log(random);
-    console.log(arr[random]);
-    var letter=arr[random];
-    var num=letter.length;
-    console.log(num);
-    for(var i=0;i<num;i++){
-    document.getElementById("randomWord").innerHTML +="-";
+    var random= Math.floor(Math.random()*arr.length);
+    console.log("The random number is: "+random);
+    
+    var randomWord=arr[random];
+    console.log("Word chosen is :" +randomWord);
+
+    var guessedWord="-".repeat(randomWord.length).split("");
+    console.log("pickWord:", guessedWord.join(""));
+    //var num=randomWord.length;
+    //console.log(num);
+    while(hint> 0 && guessedWord.includes("-") ){
+        var char= prompt("Enter a letter");
+        if(randomWord.includes(char)){
+        for(var i=0; i< randomWord.length;i++){
+            if(randomWord[i]==char){
+                guessedWord[i]=char;
+            }
+        
+      console.log("correct:", guessedWord.join(""));  
     }
 }
+    else{
+        hint--;
+        console.log("wrong attempts left",  hint);
+    }
+}
+if(!guessedWord.includes("-")){
+    console.log("you win word was;" ,randomWord);
+}
+else{
+    console.log("you lose word was;" ,randomWord);
+}
+    /*for(var i=0;i<num;i++){
+        document.getElementById("randomWord").innerHTML +=randomWord[i]  ;
+    
+    }
+    document.getElementById("randomWord").innerHTML +="<br>" ;
+     for(var i=0;i<num;i++){
+        
+    document.getElementById("randomWord").innerHTML +="-  ";
+    }
 
-</script><!-- Start writing your project code in this file! -->
+
+}*/
+}
+</script> 
