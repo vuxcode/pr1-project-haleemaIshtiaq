@@ -20,7 +20,11 @@ time.addEventListener("click",timeBased);
 var timeless=document.getElementById("withoutTime");
 timeless.addEventListener("click",withoutTime);
 
-
+var hint=6;
+    var arr=[];
+    var randomWord=[];
+    var random, guessedWord, letters;
+    var alphaButtons;
 //creating function for time based game
 function timeBased(){
     //displaying welcome message
@@ -38,10 +42,13 @@ function timeBased(){
     //creating buttons for alphabets.ASCII value of a=65 and z=90
     for(var i=65;i<=90;i++){
         //converting ASCII values to string
-        var letters = String.fromCharCode(i);
-        var alphaButtons=document.createElement("button");
+         letters = String.fromCharCode(i);
+         alphaButtons=document.createElement("button");
         //writing letters on buttons
         alphaButtons.innerHTML=letters;
+        alphaButtons.addEventListener("click",function(){
+            wordChecking(this.innerHTML.toLowerCase());
+        });
         //setting colour of letters to blue
         alphaButtons.style.color= "blue";
         ////setting font size of letters to 20px
@@ -59,6 +66,7 @@ function timeBased(){
              alphabets.appendChild(document.createElement("br"));
         }
     }
+    
 }
 
 //creating function for game without time limit
@@ -74,20 +82,28 @@ function withoutTime(){
 }
 
 function wordsDisplay(){
-    var hint=6;
-    var arr=["rainbow","sunlight","pizza"];
-    var random= Math.floor(Math.random()*arr.length);
+   
+     arr=["rainbow","sunlight","pizza"];
+     random= Math.floor(Math.random()*arr.length);
     console.log("The random number is: "+random);
     
-    var randomWord=arr[random];
+     randomWord=arr[random];
     console.log("Word chosen is :" +randomWord);
 
-    var guessedWord="-".repeat(randomWord.length).split("");
+     guessedWord="-".repeat(randomWord.length).split("");
     console.log("pickWord:", guessedWord.join(""));
+    document.getElementById("randomWord").innerHTML = guessedWord.join("") ;
+}
+function wordChecking(char){
     //var num=randomWord.length;
     //console.log(num);
-    while(hint> 0 && guessedWord.includes("-") ){
-        var char= prompt("Enter a letter");
+    //while(hint> 0 && guessedWord.includes("-") ){
+        //var char= prompt("Enter a letter");
+        if(hint<=0|| !guessedWord.includes("-")){
+            return;
+        }
+        console.log("in");
+        console.log(char);
         if(randomWord.includes(char)){
         for(var i=0; i< randomWord.length;i++){
             if(randomWord[i]==char){
@@ -95,18 +111,21 @@ function wordsDisplay(){
             }
         
       console.log("correct:", guessedWord.join(""));  
+      document.getElementById("randomWord").innerHTML = guessedWord.join("") ;
     }
 }
     else{
         hint--;
         console.log("wrong attempts left",  hint);
     }
-}
+//}
 if(!guessedWord.includes("-")){
     console.log("you win word was;" ,randomWord);
+    disableButtons();
 }
-else{
+else if(hint<=0) {
     console.log("you lose word was;" ,randomWord);
+    disableButtons();
 }
     /*for(var i=0;i<num;i++){
         document.getElementById("randomWord").innerHTML +=randomWord[i]  ;
@@ -120,5 +139,11 @@ else{
 
 
 }*/
+}
+function disableButtons(){
+    var buttons=document.getElementById("alphabets").getElementsByTagName("button");
+    for(var i=0;i < buttons.length;i++){
+        buttons[i].disabled = true;
+    }
 }
 </script> 
