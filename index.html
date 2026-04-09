@@ -12,7 +12,7 @@
 </div>
  <div id="alphabets" style="text-align:center;" ></div>
 <div id="finalMessage" style="text-align:center;" ></div>
- 
+<div id="chancesMessage" style="display:none; position:absolute; top:250px; left:80px;" >jjj</div>
 <script>
   //Declaring variables at the top  
 var chances=6;
@@ -37,6 +37,7 @@ function timeBased(){
     document.getElementById("welcomeMessage").innerHTML="Welcome to time based ⏲️  Hangman Game<br><br><br><br>";
     //Making the hint button visible
     document.getElementById("hint").style.display="block";
+    document.getElementById("chancesMessage").style.display="block";
     //hiding all other buttons
     document.getElementById("timeBased").style.display="none";
     document.getElementById("withoutTime").style.display="none";
@@ -56,6 +57,7 @@ function withoutTime(){
     document.getElementById("welcomeMessage").innerHTML="Welcome to Hangman Game.Take your time to guess.NO TIME STRESS🥳<br><br><br><br>";
     //Making the hint button visible
     document.getElementById("hint").style.display="block";
+    document.getElementById("chancesMessage").style.display="block";
     //hiding all other buttons
     document.getElementById("timeBased").style.display="none";
     document.getElementById("withoutTime").style.display="none";
@@ -125,7 +127,7 @@ function showKeypad(){
 
 //Making a function to select the random word
 function wordsDisplay(){
-
+document.getElementById("chancesMessage").innerHTML="chances left: "+chances+"/6";
    //Creating an array that contains words
     arr=["rainbow","sunlight","pizza","antivirus","password","reflection","earth","adventure","mountain","planet"];
     //Creating an array for hints
@@ -171,7 +173,8 @@ function wordChecking(char){
         }
         else{
           chances--;
-          console.log("wrong attempts left",  chances);
+          console.log("Wrong guess. Attempts left",  chances);
+          document.getElementById("chancesMessage").innerHTML="chances left: "+chances+"/6";
         }
 //}
 //Showing the final result if the player wins
