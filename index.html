@@ -14,42 +14,78 @@
  
  
 <script>
+  //Declaring variables at the top  
+var chances=6;
+var arr=[];
+var randomWord=[];
+var hints=[];
+var random, guessedWord, letters;
+var currentHint="";
+var alphaButtons;
+
 
 var time=document.getElementById("timeBased");
 time.addEventListener("click",timeBased);
 var timeless=document.getElementById("withoutTime");
 timeless.addEventListener("click",withoutTime);
 
-var hint=6;
-    var arr=[];
-    var randomWord=[];
-    var random, guessedWord, letters;
-    var alphaButtons;
+
 //creating function for time based game
 function timeBased(){
+
     //displaying welcome message
     document.getElementById("welcomeMessage").innerHTML="Welcome to time based ⏲️  Hangman Game<br><br><br><br>";
+    //Making the hint button visible
     document.getElementById("hint").style.display="block";
     //hiding all other buttons
     document.getElementById("timeBased").style.display="none";
     document.getElementById("withoutTime").style.display="none";
-    
+    //calling the function to show the keypad to the user
     showKeypad();
+    //calling the function to pick up the random word
     wordsDisplay();
+    //when hint button is clicked run the function showHint to show the hint to the user
+    document.getElementById("hint").addEventListener("click",showHint);
     
 }
-    function showKeypad(){
+
+//creating function for game without time limit
+function withoutTime(){
+
+    //displaying welcome message
+    document.getElementById("welcomeMessage").innerHTML="Welcome to Hangman Game.Take your time to guess.NO TIME STRESS🥳<br><br><br><br>";
+    //Making the hint button visible
+    document.getElementById("hint").style.display="block";
+    //hiding all other buttons
+    document.getElementById("timeBased").style.display="none";
+    document.getElementById("withoutTime").style.display="none";
+    //calling the function to show the keypad to the user
+     showKeypad();
+    //calling the function to pick up the random word
+     wordsDisplay();
+    //when hint button is clicked run the function showHint to show the hint to the user
+     document.getElementById("hint").addEventListener("click",showHint);
+
+}
+
+//Defining the function to show the buttons to the user(keypad)
+function showKeypad(){
+
     var alphabets=document.getElementById("alphabets");
     //creating buttons for alphabets.ASCII value of a=65 and z=90
-    for(var i=65;i<=90;i++){
+      for(var i=65;i<=90;i++){
         //converting ASCII values to string
          letters = String.fromCharCode(i);
          alphaButtons=document.createElement("button");
         //writing letters on buttons
         alphaButtons.innerHTML=letters;
+        //When the button is clicked run the function
         alphaButtons.addEventListener("click",function(){
+        //disable the button that was clicked so user is not allowed to click it again  
+            this.disabled = true;
+            //Sending the clicked letter after converting it to lower case to another function for validation 
             wordChecking(this.innerHTML.toLowerCase());
-        });
+            });
         //setting colour of letters to blue
         alphaButtons.style.color= "blue";
         ////setting font size of letters to 20px
@@ -70,83 +106,86 @@ function timeBased(){
     
 }
 
-//creating function for game without time limit
-function withoutTime(){
-    //displaying welcome message
-    document.getElementById("welcomeMessage").innerHTML="Welcome to Hangman Game.Take your time to guess.NO TIME STRESS🥳<br><br><br><br>";
-    //hiding all other buttons
-    document.getElementById("timeBased").style.display="none";
-    document.getElementById("withoutTime").style.display="none";
-     showKeypad();
-     document.getElementById("hint").style.display="block";
-     wordsDisplay();
-}
 
+//Making a function to select the random word
 function wordsDisplay(){
-   
-     arr=["rainbow","sunlight","pizza"];
-     random= Math.floor(Math.random()*arr.length);
+
+   //Creating an array that contains words
+    arr=["rainbow","sunlight","pizza","antivirus","password","reflection","earth","adventure","mountain","planet"];
+    //Creating an array for hints
+    hints=["Seven colours in the sky","That comes from the sun","Italian food","Protect the computers","Used for security reasons"," The image of something in a mirror or any reflective surface.","The only place to live.","An unusal,exciting or possibly dangerous activity.","A raised part of the earth's surface","Earth is the example of this."]
+    //creating a random number
+    random= Math.floor(Math.random()*arr.length);
     console.log("The random number is: "+random);
-    
+    //Picking up the random word by using the random number
      randomWord=arr[random];
+    //picking the hint for that random word
+    currentHint= hints[random];
     console.log("Word chosen is :" +randomWord);
 
-     guessedWord="-".repeat(randomWord.length).split("");
+    //creating the blank spaces according to the length of the word..split separates the character['p','i','z','z','a'].join concatenates the characters-----
+    guessedWord="-".repeat(randomWord.length).split("");
     console.log("pickWord:", guessedWord.join(""));
     document.getElementById("randomWord").innerHTML = guessedWord.join("") ;
 }
+
+//Making a function for validation
 function wordChecking(char){
-    //var num=randomWord.length;
-    //console.log(num);
-    //while(hint> 0 && guessedWord.includes("-") ){
+    
         //var char= prompt("Enter a letter");
-        if(hint<=0|| !guessedWord.includes("-")){
+
+        //if the attempts left is zero or if there in no blank space left return from here.game is over
+        if(chances<=0|| !guessedWord.includes("-")){
             return;
         }
-        console.log("in");
+        
         console.log(char);
+        //Checking for validation
         if(randomWord.includes(char)){
-        for(var i=0; i< randomWord.length;i++){
+          for(var i=0; i< randomWord.length;i++){
             if(randomWord[i]==char){
                 guessedWord[i]=char;
             }
         
-      console.log("correct:", guessedWord.join(""));  
-      document.getElementById("randomWord").innerHTML = guessedWord.join("") ;
-    }
-}
-    else{
-        hint--;
-        console.log("wrong attempts left",  hint);
-    }
+          console.log("correct:", guessedWord.join("")); 
+          //Writing the correct letter on the screen 
+          document.getElementById("randomWord").innerHTML = guessedWord.join("") ;
+          }
+        }
+        else{
+          chances--;
+          console.log("wrong attempts left",  chances);
+        }
 //}
+//Showing the final result if the player wins
 if(!guessedWord.includes("-")){
     console.log("you win word was;" ,randomWord);
     document.getElementById("alphabets").innerHTML+= "<br><br>" +"You guessed the right word";
+    //Disable the buttons because the game is over
     disableButtons();
 }
-else if(hint<=0) {
+//showing the final result if the player lose the game
+else if(chances<=0) {
     console.log("you lose word was;" ,randomWord);
      document.getElementById("alphabets").innerHTML+= "<br><br>" +"You lose...The word is " +randomWord;
+     //Disable the buttons because the game is over
     disableButtons();
 }
-    /*for(var i=0;i<num;i++){
-        document.getElementById("randomWord").innerHTML +=randomWord[i]  ;
     
-    }
-    document.getElementById("randomWord").innerHTML +="<br>" ;
-     for(var i=0;i<num;i++){
-        
-    document.getElementById("randomWord").innerHTML +="-  ";
-    }
-
-
-}*/
 }
+
+//Defining the disable function.Making all the keys disabled after the game is over
 function disableButtons(){
     var buttons=document.getElementById("alphabets").getElementsByTagName("button");
     for(var i=0;i < buttons.length;i++){
         buttons[i].disabled = true;
     }
 }
+
+//Defining the hint function.It displays the current hint associated with the random word
+function showHint(){
+    document.getElementById("hint").innerHTML= currentHint;
+    
+}
+
 </script> 
