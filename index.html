@@ -3,15 +3,15 @@
 
 <h1 id="welcomeMessage" ; style="text-align:center;"><br><br>Welcome to play <span style="color:blue;">HANGMAN</span>  word guessing game<br><br></h1>
 <center>
-<button id="timeBased" style="color:red;"><span style=" font-size:20px;">Time based game</span><br> Time linmit 2 minutes</button>
-<button id="withoutTime" style="color:red;"><span style=" font-size:20px;">Without Time</span> <br>No time limit</button>
+<button id="timeBased" style="color:red;cursor:pointer;"><span style=" font-size:20px;">Time based game</span><br> Time linmit 2 minutes</button>
+<button id="withoutTime" style="color:red;cursor:pointer;"><span style=" font-size:20px;">Without Time</span> <br>No time limit</button>
 </center>
 <div id="randomWord" style="text-align:center;"></div>
 <div id="hint" style="display:none;text-align:center;">
- <button style="padding:10px;color:yellow;">Hint</button>
+ <button style="padding:10px;color:yellow;cursor:pointer;">Hint</button>
 </div>
  <div id="alphabets" style="text-align:center;" ></div>
- 
+<div id="finalMessage" style="text-align:center;" ></div>
  
 <script>
   //Declaring variables at the top  
@@ -21,7 +21,7 @@ var randomWord=[];
 var hints=[];
 var random, guessedWord, letters;
 var currentHint="";
-var alphaButtons;
+var alphaButtons,char,correct,found;
 
 
 var time=document.getElementById("timeBased");
@@ -81,11 +81,27 @@ function showKeypad(){
         alphaButtons.innerHTML=letters;
         //When the button is clicked run the function
         alphaButtons.addEventListener("click",function(){
+            //change the cursor to indicate that button cannot be clicked again
+            this.style.cursor="not-allowed";
         //disable the button that was clicked so user is not allowed to click it again  
             this.disabled = true;
+            
             //Sending the clicked letter after converting it to lower case to another function for validation 
-            wordChecking(this.innerHTML.toLowerCase());
+            
+             correct= wordChecking(this.innerHTML.toLowerCase());
+            //Chnging the colour of right button to green
+             if(correct){
+               this.style.backgroundColor= "green";
+               this.style.color= "white";
+             }
+             //Changing the colour of wrong button to red
+             else{
+               this.style.backgroundColor= "red";
+               this.style.color= "white";
+             }
             });
+            //Adding hover effect.When user move cursor it becomes hand
+            alphaButtons.style.cursor="pointer";
         //setting colour of letters to blue
         alphaButtons.style.color= "blue";
         ////setting font size of letters to 20px
@@ -136,12 +152,13 @@ function wordChecking(char){
 
         //if the attempts left is zero or if there in no blank space left return from here.game is over
         if(chances<=0|| !guessedWord.includes("-")){
-            return;
+            return false;
         }
-        
+        found=false;
         console.log(char);
         //Checking for validation
         if(randomWord.includes(char)){
+            found=true;
           for(var i=0; i< randomWord.length;i++){
             if(randomWord[i]==char){
                 guessedWord[i]=char;
@@ -160,18 +177,18 @@ function wordChecking(char){
 //Showing the final result if the player wins
 if(!guessedWord.includes("-")){
     console.log("you win word was;" ,randomWord);
-    document.getElementById("alphabets").innerHTML+= "<br><br>" +"You guessed the right word";
+    document.getElementById("finalMessage").innerHTML+= "<br><br>" +"You guessed the right word";
     //Disable the buttons because the game is over
     disableButtons();
 }
 //showing the final result if the player lose the game
 else if(chances<=0) {
     console.log("you lose word was;" ,randomWord);
-     document.getElementById("alphabets").innerHTML+= "<br><br>" +"You lose...The word is " +randomWord;
+     document.getElementById("finalMessage").innerHTML+= "<br><br>" +"You lose...The word is " +randomWord;
      //Disable the buttons because the game is over
     disableButtons();
 }
-    
+   return found; 
 }
 
 //Defining the disable function.Making all the keys disabled after the game is over
