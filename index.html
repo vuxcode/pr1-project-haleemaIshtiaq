@@ -243,6 +243,7 @@ else if(chances<=0) {
      document.getElementById("finalMessage").innerHTML = "<br><br>" +"You lose the game...The word is " +randomWord;
      //Disable the buttons because the game is over
    disableButtons();
+   document.getElementById("hintButton").disabled=true;
    gameEnded=true;
    
 }
