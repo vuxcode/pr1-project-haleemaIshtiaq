@@ -14,6 +14,7 @@
  <div id="alphabets" style="text-align:center;" ></div>
 <div id="finalMessage" style="text-align:center;" ></div>
 <div id="chancesMessage" style="display:none; position:absolute; top:250px; left:80px;" ></div>
+<div id="words"  style="display:none; position:absolute; top:200px; left:80px;"></div>
 <script>
   //Declaring variables at the top  
 var chances;
@@ -26,6 +27,7 @@ var currentHint="";
 var alphaButtons,char,correct,found;
 var winningCount=0;
 var gameEnded= false;
+var words=0;
 
 
 
@@ -43,6 +45,7 @@ function timeBased(){
     //Making the hint button visible
     document.getElementById("hint").style.display="block";
     document.getElementById("chancesMessage").style.display="block";
+    document.getElementById("words").style.display="block";
     //hiding all other buttons
     document.getElementById("timeBased").style.display="none";
     document.getElementById("withoutTime").style.display="none";
@@ -63,6 +66,7 @@ function withoutTime(){
     //Making the hint button visible
     document.getElementById("hint").style.display="block";
     document.getElementById("chancesMessage").style.display="block";
+    document.getElementById("words").style.display="block";
     //hiding all other buttons
     document.getElementById("timeBased").style.display="none";
     document.getElementById("withoutTime").style.display="none";
@@ -134,7 +138,7 @@ function showKeypad(){
 function wordsDisplay(){
 chances=6;
 document.getElementById("chancesMessage").innerHTML="chances left: "+chances+"/6";
-
+document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
    //Creating an array that contains words
     arr=["rainbow","sunlight","pizza","antivirus","password","reflection","earth","adventure","mountain","planet"];
     //Creating an array for hints
@@ -206,6 +210,7 @@ if(!guessedWord.includes("-")){
     console.log("you win word was;" ,randomWord);
     document.getElementById("finalMessage").innerHTML= "<br><br>" +"You guessed the right word <br><br>  Next word is";
     winningCount++;
+    document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
 
       if(winningCount==5){
         document.getElementById("finalMessage").innerHTML= "<br><br>" +"You have won the game";
