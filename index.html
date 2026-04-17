@@ -148,6 +148,7 @@ document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
     //Making the hint button visible for the next word
     document.getElementById("hintButton").style.display="block";
     //checking if user guessed 5 words correctly then display message that user has won 
+    enableButtons();
     if(winningCount == 5){
       document.getElementById("finalMessage").innerHTML+= "<br><br>" +"You have won the game";
       disableButtons();
@@ -211,10 +212,11 @@ if(!guessedWord.includes("-")){
     document.getElementById("finalMessage").innerHTML= "<br><br>" +"You guessed the right word <br><br>  Next word is";
     winningCount++;
     document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
-
+    //Disable keypad during pause before loading the next word
+      disableButtons();
       if(winningCount==5){
         document.getElementById("finalMessage").innerHTML= "<br><br>" +"You have won the game";
-        disableButtons();
+        //disableButtons();
         gameEnded=true;
 
       }
@@ -223,6 +225,7 @@ if(!guessedWord.includes("-")){
            setTimeout(function(){
             //clear previous hint before showing the next word
             document.getElementById("hintText").innerHTML= "";
+           
             //load the next random number
             wordsDisplay();
             
