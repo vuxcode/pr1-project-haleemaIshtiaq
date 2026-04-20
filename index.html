@@ -16,6 +16,7 @@
 <div id="chancesMessage" style="display:none; position:absolute; top:250px; left:80px;" ></div>
 <div id="words"  style="display:none; position:absolute; top:200px; left:80px;"></div>
 <div id="time"  style="display:block; position:absolute; top:100px; left:50px;"></div>
+<button id="restartGame" style="display:none;">Restart</button>
 <script>
   //Declaring variables at the top  
 var chances;
@@ -30,6 +31,7 @@ var winningCount=0;
 var gameEnded= false;
 var words=0;
 var time,timeLeft,minutes,seconds;
+var restart;
 
 
 
@@ -223,6 +225,7 @@ if(!guessedWord.includes("-")){
         gameEnded=true;
         //Stop the times because game is ended
         clearInterval(time);
+        showRestart();
 
       }
       else{
@@ -256,6 +259,7 @@ else if(chances<=0) {
    gameEnded=true;
    //stop the timer because game is ended
    clearInterval(time);
+   showRestart();
 }
 //returning the value to make  a button either green or red
 //return value is sent before setTimeout executes so button colour updates normally
@@ -316,7 +320,7 @@ function startCountDown(){
           seconds = "0" + seconds;
         }
         console.log( minutes + ":" + seconds);
-        //displaying the time on screen(mm:ss)
+        //displaying the time on screen(m:ss)
         document.getElementById("time").innerHTML= minutes + ":" + seconds;
         //decreasing time by 1
         timeLeft--;
@@ -330,6 +334,7 @@ function startCountDown(){
         disableButtons();
         //Marking as game is ended
         gameEnded=true;
+        showRestart();
       }
 
 
@@ -339,5 +344,29 @@ function startCountDown(){
 
 
 }
+function showRestart(){
+  restart=document.getElementById("restartGame");
+  //Making the restart button visible
+  restart.style.display="block";
+  //When button is clicked call retartGame fuction to load the game again
+  restart.addEventListener("click",restartGame);
+  //Making all other elements on the page invisible except final message
+    document.getElementById("hint").style.display="none";
+    document.getElementById("chancesMessage").style.display="none";
+    document.getElementById("words").style.display="none";
+    document.getElementById("time").style.display="none";
+    //document.getElementById("finalMessage").style.display="none";
+    document.getElementById("alphabets").style.display="none";
+     document.getElementById("randomWord").style.display="none";
+
+
+}
+//Making a function to load the game again
+  function restartGame(){
+    
+    location.reload();
+    
+}
+
 
 </script> 
