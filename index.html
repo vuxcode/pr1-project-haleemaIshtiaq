@@ -16,7 +16,11 @@
 <div id="chancesMessage" style="display:none; position:absolute; top:250px; left:80px;" ></div>
 <div id="words"  style="display:none; position:absolute; top:200px; left:80px;"></div>
 <div id="time"  style="display:block; position:absolute; top:100px; left:50px;"></div>
-<button id="restartGame" style="display:none;">Restart</button>
+<div style="text-align:center;">
+<button id="restartGame" style="display:none; cursor:pointer; margin-right:10px;">Restart</button>
+<button id="exit" style="display:none;cursor:pointer;">Exit</button>
+</div>
+<hi id="output"></hi>
 <script>
   //Declaring variables at the top  
 var chances;
@@ -31,7 +35,7 @@ var winningCount=0;
 var gameEnded= false;
 var words=0;
 var time,timeLeft,minutes,seconds;
-var restart;
+var restart,exit;
 
 
 
@@ -346,10 +350,16 @@ function startCountDown(){
 }
 function showRestart(){
   restart=document.getElementById("restartGame");
-  //Making the restart button visible
-  restart.style.display="block";
+  //Making the restart button visible.Using inline block to make both buttons restart and exit come on one line
+  restart.style.display="inLine-block";
   //When button is clicked call retartGame fuction to load the game again
   restart.addEventListener("click",restartGame);
+
+  exit=document.getElementById("exit");
+  //Making the exit button visible.Using inline block to make both buttons restart and exit come on one line
+  exit.style.display="inLine-block";
+  //When button is clicked call exitGame fuction to exit the game 
+  exit.addEventListener("click",exitGame);
   //Making all other elements on the page invisible except final message
     document.getElementById("hint").style.display="none";
     document.getElementById("chancesMessage").style.display="none";
@@ -359,6 +369,14 @@ function showRestart(){
     document.getElementById("alphabets").style.display="none";
      document.getElementById("randomWord").style.display="none";
 
+
+}
+function exitGame(){
+output.innerText="Thankyou for playing the game";
+document.getElementById("finalMessage").style.display="none";
+exit.style.display="none";
+restart.style.display="none";
+document.getElementById("welcomeMessage").style.display="none";
 
 }
 //Making a function to load the game again
