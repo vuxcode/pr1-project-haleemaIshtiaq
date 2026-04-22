@@ -3,8 +3,8 @@
 
 <h1 id="welcomeMessage" ; style="text-align:center;"><br><br>Welcome to play <span style="color:blue;">HANGMAN</span>  word guessing game<br><br></h1>
 <center>
-<button id="timeBased" style="color:red;cursor:pointer;"><span style=" font-size:20px;">Time based game</span><br> Time linmit 2 minutes</button>
-<button id="withoutTime" style="color:red;cursor:pointer;"><span style=" font-size:20px;">Without Time</span> <br>No time limit</button>
+<button id="timeBased" style="color:blue;cursor:pointer;"><span style=" font-size:20px;">Time based game</span><br> Time linmit 2 minutes</button>
+<button id="withoutTime" style="color:blue;cursor:pointer;"><span style=" font-size:20px;">Without Time</span> <br>No time limit</button>
 </center>
 <div id="randomWord" style="text-align:center;"></div>
 <div id="hint" style="display:none;text-align:center;">
@@ -21,6 +21,9 @@
 <button id="exit" style="display:none;cursor:pointer;">Exit</button>
 </div>
 <hi id="output"></hi>
+
+<!--Create a canvas element-->
+<canvas id="hangMan"></canvas>
 <script>
   //Declaring variables at the top  
 var chances;
@@ -36,7 +39,10 @@ var gameEnded= false;
 var words=0;
 var time,timeLeft,minutes,seconds;
 var restart,exit;
-
+//Create en element to connect to canvas
+var canvas= document.getElementById("hangMan");
+//Get the 2D context of the canvas
+var ctx=canvas.getContext("2d");
 
 
 var time=document.getElementById("timeBased");
@@ -385,6 +391,28 @@ document.getElementById("welcomeMessage").style.display="none";
     location.reload();
     
 }
+function drawHangman(){
+  //clear the whole canvas
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.beginPath();
+  //Draw base line
+  ctx.moveTo(20,150);
+  ctx.lineTo(100,150);
+
+//draw vertical line
+ ctx.moveTo(60,150);
+  ctx.lineTo(60,60);
+
+//draw top
+  ctx.lineTo(120,60);
+  
+//Draw rope
+  ctx.lineTo(120,90);
+
+  ctx.stroke();
+
+}
+
 
 
 </script> 
