@@ -13,17 +13,21 @@
 </div>
  <div id="alphabets" style="text-align:center;" ></div>
 <div id="finalMessage" style="text-align:center;" ></div>
-<div id="chancesMessage" style="display:none; position:absolute; top:250px; left:80px;" ></div>
+
+
+<div id="chancesMessage" style="display:none;position:absolute; top:250px; left:80px; " ></div>
 <div id="words"  style="display:none; position:absolute; top:200px; left:80px;"></div>
-<div id="time"  style="display:block; position:absolute; top:100px; left:50px;"></div>
+<div id="time"  style="display:block;position:absolute; top:100px; left:50px; "></div>
+
+
 <div style="text-align:center;">
 <button id="restartGame" style="display:none; cursor:pointer; margin-right:10px;">Restart</button>
 <button id="exit" style="display:none;cursor:pointer;">Exit</button>
 </div>
 <hi id="output"></hi>
-
 <!--Create a canvas element-->
-<canvas id="hangMan" height="300"></canvas>
+<canvas id="hangMan"  height="300"></canvas>
+
 <script>
   //Declaring variables at the top  
 var chances;
@@ -89,7 +93,7 @@ function withoutTime(){
      showKeypad();
     //calling the function to pick up the random word
      wordsDisplay();
-     drawHangman();
+     //drawHangman();
     //when hint button is clicked run the function showHint to show the hint to the user
      document.getElementById("hint").addEventListener("click",showHint);
 
@@ -153,6 +157,8 @@ function showKeypad(){
 //Making a function to select the random word
 function wordsDisplay(){
 chances=6;
+ctx.clearRect(0,0,canvas.width,canvas.height);
+drawHangman();
 document.getElementById("chancesMessage").innerHTML="chances left: "+chances+"/6";
 document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
    //Creating an array that contains words
@@ -220,9 +226,10 @@ function wordChecking(char){
           chances--;
           console.log("Wrong guess. Attempts left",  chances);
           document.getElementById("chancesMessage").innerHTML="chances left: "+chances+"/6";
+          drawHangman();
         }
 //}
-//Showing the final result if the player wins
+//Showing the final result if the player guessed the right word
 if(!guessedWord.includes("-")){
     console.log("you win word was;" ,randomWord);
     document.getElementById("finalMessage").innerHTML= "<br><br>" +"You guessed the right word <br><br>  Next word is";
@@ -230,13 +237,14 @@ if(!guessedWord.includes("-")){
     document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
     //Disable keypad during pause before loading the next word
       disableButtons();
+      //Showing the result if player guessed all five words correctly
       if(winningCount==5){
         document.getElementById("finalMessage").innerHTML= "<br><br>" +"You have won the game";
         //disableButtons();
         gameEnded=true;
         //Stop the times because game is ended
         clearInterval(time);
-        showRestart();
+        showEndButtons();
 
       }
       else{
@@ -249,7 +257,7 @@ if(!guessedWord.includes("-")){
             //load the next random number
             wordsDisplay();
             
-            
+             
            },5000);  //5000 milliseconds = 5 seconds
            }
       }
@@ -270,7 +278,7 @@ else if(chances<=0) {
    gameEnded=true;
    //stop the timer because game is ended
    clearInterval(time);
-   showRestart();
+   setTimeout(showEndButtons,5000);
 }
 //returning the value to make  a button either green or red
 //return value is sent before setTimeout executes so button colour updates normally
@@ -345,7 +353,7 @@ function startCountDown(){
         disableButtons();
         //Marking as game is ended
         gameEnded=true;
-        showRestart();
+        showEndButtons();
       }
 
 
@@ -355,7 +363,7 @@ function startCountDown(){
 
 
 }
-function showRestart(){
+function showEndButtons(){
   restart=document.getElementById("restartGame");
   //Making the restart button visible.Using inline block to make both buttons restart and exit come on one line
   restart.style.display="inLine-block";
@@ -375,6 +383,7 @@ function showRestart(){
     //document.getElementById("finalMessage").style.display="none";
     document.getElementById("alphabets").style.display="none";
      document.getElementById("randomWord").style.display="none";
+     ctx.clearRect(0,0,canvas.width,canvas.height);
 
 
 }
@@ -393,6 +402,8 @@ document.getElementById("welcomeMessage").style.display="none";
     
 }
 function drawHangman(){
+  if(chances==6){
+   // ctx.clearRect(0,0,canvas.width,canvas.height);
   //clear the whole canvas
   ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.strokeStyle="blue";
@@ -412,12 +423,14 @@ function drawHangman(){
   ctx.lineTo(120,90);
   //draw gallows now
 ctx.stroke();
-
+  }
+  else if(chances==5){
 //head (new path)
   ctx.beginPath();
   ctx.arc(120,110,20,0,2*Math.PI);
   ctx.stroke();
-
+  }
+  else if(chances==4){
   //head center is(120,110) radius(20) so bottom of head is(110+20=130)so body starts at (120,130)
   //code for body
 ctx.beginPath();
@@ -427,33 +440,42 @@ ctx.beginPath();
   ctx.lineTo(120,190);
   //draw the body now
   ctx.stroke();
+  }
+  else if(chances==3){
 //code for left arm
 ctx.beginPath();
   ctx.moveTo(120,150);
   ctx.lineTo(90,170);
   ctx.stroke();
+  }
+  else if(chances==2){
 //code for right arm
 ctx.beginPath();
 //same point as left arm
   ctx.moveTo(120,150);
   ctx.lineTo(150,170);
   ctx.stroke();
-
+  }
+  else if(chances==1){
+    console.log("in chances 1");
   //code for left leg
 ctx.beginPath();
 
   ctx.moveTo(120,190);
   ctx.lineTo(90,210);
   ctx.stroke();
-
+  else if (chances==0) {
+    console.log("in chances 0");
   //code for right leg
 ctx.beginPath();
+
 //bottom of the body
   ctx.moveTo(120,190);
   //down right
   ctx.lineTo(150,210);
   ctx.stroke();
 
+}
 }
 
 
