@@ -23,7 +23,7 @@
 <hi id="output"></hi>
 
 <!--Create a canvas element-->
-<canvas id="hangMan"></canvas>
+<canvas id="hangMan" height="300"></canvas>
 <script>
   //Declaring variables at the top  
 var chances;
@@ -89,6 +89,7 @@ function withoutTime(){
      showKeypad();
     //calling the function to pick up the random word
      wordsDisplay();
+     drawHangman();
     //when hint button is clicked run the function showHint to show the hint to the user
      document.getElementById("hint").addEventListener("click",showHint);
 
@@ -394,21 +395,63 @@ document.getElementById("welcomeMessage").style.display="none";
 function drawHangman(){
   //clear the whole canvas
   ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.strokeStyle="blue";
   ctx.beginPath();
   //Draw base line
-  ctx.moveTo(20,150);
-  ctx.lineTo(100,150);
+  ctx.moveTo(20,220);
+  ctx.lineTo(100,220);
 
 //draw vertical line
- ctx.moveTo(60,150);
+ ctx.moveTo(60,220);
   ctx.lineTo(60,60);
 
 //draw top
   ctx.lineTo(120,60);
-  
+
 //Draw rope
   ctx.lineTo(120,90);
+  //draw gallows now
+ctx.stroke();
 
+//head (new path)
+  ctx.beginPath();
+  ctx.arc(120,110,20,0,2*Math.PI);
+  ctx.stroke();
+
+  //head center is(120,110) radius(20) so bottom of head is(110+20=130)so body starts at (120,130)
+  //code for body
+ctx.beginPath();
+  //start at belew head
+  ctx.moveTo(120,130);
+  //Go straight down
+  ctx.lineTo(120,190);
+  //draw the body now
+  ctx.stroke();
+//code for left arm
+ctx.beginPath();
+  ctx.moveTo(120,150);
+  ctx.lineTo(90,170);
+  ctx.stroke();
+//code for right arm
+ctx.beginPath();
+//same point as left arm
+  ctx.moveTo(120,150);
+  ctx.lineTo(150,170);
+  ctx.stroke();
+
+  //code for left leg
+ctx.beginPath();
+
+  ctx.moveTo(120,190);
+  ctx.lineTo(90,210);
+  ctx.stroke();
+
+  //code for right leg
+ctx.beginPath();
+//bottom of the body
+  ctx.moveTo(120,190);
+  //down right
+  ctx.lineTo(150,210);
   ctx.stroke();
 
 }
