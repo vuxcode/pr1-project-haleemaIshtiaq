@@ -35,6 +35,7 @@ var arr=[];
 var randomWord=[];
 var hints=[];
 var usedIndexes=[];
+var usedKeys=[];
 var random, guessedWord, letters;
 var currentHint="";
 var alphaButtons,char,correct,found;
@@ -43,6 +44,7 @@ var gameEnded= false;
 var words=0;
 var time,timeLeft,minutes,seconds;
 var restart,exit;
+var Key;
 //Create en element to connect to canvas
 var canvas= document.getElementById("hangMan");
 //Get the 2D context of the canvas
@@ -62,7 +64,9 @@ function timeBased(){
     document.getElementById("welcomeMessage").innerHTML="Welcome to time based ⏲️  Hangman Game<br><br><br><br>";
     //Making the hint button visible
     document.getElementById("hint").style.display="block";
+    //Making chances visible which is 6
     document.getElementById("chancesMessage").style.display="block";
+    //Making number of words to be guessed visible which is 5 for winning the game
     document.getElementById("words").style.display="block";
     //hiding all other buttons
     document.getElementById("timeBased").style.display="none";
@@ -71,6 +75,7 @@ function timeBased(){
     showKeypad();
     //calling the function to pick up the random word
     wordsDisplay();
+    //Call the function to start the timer
     startCountDown();
     
     //when hint button is clicked run the function showHint to show the hint to the user
@@ -84,7 +89,9 @@ function withoutTime(){
     document.getElementById("welcomeMessage").innerHTML="Welcome to Hangman Game.Take your time to guess.NO TIME STRESS🥳<br><br><br><br>";
     //Making the hint button visible
     document.getElementById("hint").style.display="block";
+    ////Making chances visible which is 6
     document.getElementById("chancesMessage").style.display="block";
+    //Making number of words to be guessed visible which is 5 for winning the game
     document.getElementById("words").style.display="block";
     //hiding all other buttons
     document.getElementById("timeBased").style.display="none";
@@ -101,31 +108,37 @@ function withoutTime(){
 
 //Defining the function to show the buttons to the user(keypad)
 function showKeypad(){
-
+   document.addEventListener("keyup",getKey);
+  
+//Get the container where alphabet buttons will be added
     var alphabets=document.getElementById("alphabets");
-    //creating buttons for alphabets.ASCII value of a=65 and z=90
+    //Loop through ASCII values (65 to 90) to generate A-Z.. A=65 and Z=90
       for(var i=65;i<=90;i++){
-        //converting ASCII values to string
+        //converting ASCII values to characters(means corresponding letter A-Z)
          letters = String.fromCharCode(i);
+         //create a new button element dynamically
          alphaButtons=document.createElement("button");
         //writing letters on buttons
         alphaButtons.innerHTML=letters;
-        //When the button is clicked run the function
-        alphaButtons.addEventListener("click",function(){
+        //When the button is clicked run the function(Adding click event to each button)
+    //window.addEventListener("keyup",getKey);
+    //wordChecking(clickedKey);
+
+       alphaButtons.addEventListener("click",function(){
             //change the cursor to indicate that button cannot be clicked again
             this.style.cursor="not-allowed";
-        //disable the button that was clicked so user is not allowed to click it again  
+        //disable the button that was clicked so user is not allowed to click it again to prevent the same guessess
             this.disabled = true;
             
-            //Sending the clicked letter after converting it to lower case to another function for validation 
+            //Sending the clicked letter after converting it to lower case to word checking function for validation 
             
              correct= wordChecking(this.innerHTML.toLowerCase());
-            //Chnging the colour of right button to green
+            //Chnging the colour of clicked button to green if guess is correct
              if(correct){
                this.style.backgroundColor= "green";
                this.style.color= "white";
              }
-             //Changing the colour of wrong button to red
+             //Changing the colour of clicked button to red if guess is incorrect
              else{
                this.style.backgroundColor= "red";
                this.style.color= "white";
@@ -143,14 +156,38 @@ function showKeypad(){
         alphaButtons.style.margin= "10px";
         //button colour
         alphaButtons.style.backgroundColor= "white";
-        //shown on html page
+        //Append the created button to the alphabets container so it appears on screen
         alphabets.appendChild(alphaButtons);
         //after displaying 9 buttons move to next line
         if(i==73 || i==82 ){
              alphabets.appendChild(document.createElement("br"));
         }
     }
-    
+      }
+
+//defining function for getting keys from keyboard
+function getKey(event){
+  //converting pressed key to lower case
+key=event.key.toLowerCase();
+        console.log(key);
+        //check if its a letter
+        if(key>='a'&& key<='z'){
+          console.log("Letter pressed" +key);
+          //avoiding same letter to be pressed.
+          if(!usedKeys.includes(key)){
+            usedKeys.push(key);
+            //send letter to word checking function
+        correct=wordChecking(key);
+        }
+      }
+      else{
+        console.log("kindly enter letters");
+        alert("kindly enter letters");
+      }
+
+
+   
+
 }
 
 
@@ -177,12 +214,13 @@ document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
       gameEnded = true;
       return;
     }
-    //using do while loop to check that the random number generated must be different
+    //using do while loop to check that the random number generated must be different for the next chosen word
     do{
     //creating a random number
     random= Math.floor(Math.random()*arr.length);
     console.log("The random number is: "+random);
     }while(usedIndexes.includes(random));
+    //push the random number to an array 
      usedIndexes.push(random);
 
     //Picking up the random word by using the random number
@@ -191,7 +229,7 @@ document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
     currentHint= hints[random];
     console.log("Word chosen is :" +randomWord);
 
-    //creating the blank spaces according to the length of the word..split separates the character['p','i','z','z','a'].join concatenates the characters-----
+    //creating the blank spaces(-) according to the length of the word and store as array..split separates the characters and store in array['_','_','_','_','_']..join concatenates the characters-----
     guessedWord="-".repeat(randomWord.length).split("");
     console.log("pickWord:", guessedWord.join(""));
     document.getElementById("randomWord").innerHTML = guessedWord.join("") ;
@@ -403,37 +441,51 @@ document.getElementById("welcomeMessage").style.display="none";
 }
 function drawHangman(){
   if(chances==6){
-   // ctx.clearRect(0,0,canvas.width,canvas.height);
+   
   //clear the whole canvas
   ctx.clearRect(0,0,canvas.width,canvas.height);
+  //set drawing color to blue
   ctx.strokeStyle="blue";
+  
+  //start a new drawing path
   ctx.beginPath();
-  //Draw base line
+  //-----Draw base line
+  //Move starting point to bottom left x axis=20, y axis=220
   ctx.moveTo(20,220);
+  //Draw the horizontal base
   ctx.lineTo(100,220);
 
-//draw vertical line
+//------draw vertical pole
+//move to base position x axis=60 y axis=220
  ctx.moveTo(60,220);
+ //Draw vertical line upwards
   ctx.lineTo(60,60);
 
-//draw top
+//-----draw top horizontal line
+//Draw horizontal line to the right
   ctx.lineTo(120,60);
 
-//Draw rope
+//Draw rope(small vertical line downward)
   ctx.lineTo(120,90);
-  //draw gallows now
+  //draw all lines on canvas
 ctx.stroke();
   }
+
+//if 1 mistake make head
   else if(chances==5){
-//head (new path)
+//new drawing path
   ctx.beginPath();
+  //make circle(head)
   ctx.arc(120,110,20,0,2*Math.PI);
+  //Draw circle on canvas
   ctx.stroke();
   }
+
+  // if 2 mistakes make body also
   else if(chances==4){
   //head center is(120,110) radius(20) so bottom of head is(110+20=130)so body starts at (120,130)
   //code for body
-ctx.beginPath();
+  ctx.beginPath();
   //start at belew head
   ctx.moveTo(120,130);
   //Go straight down
@@ -441,35 +493,46 @@ ctx.beginPath();
   //draw the body now
   ctx.stroke();
   }
+
+  //3 mistakes make left arm also
   else if(chances==3){
 //code for left arm
 ctx.beginPath();
   ctx.moveTo(120,150);
+  //down left
   ctx.lineTo(90,170);
   ctx.stroke();
   }
+
+  //if 4 mistakes make right arm also
   else if(chances==2){
 //code for right arm
 ctx.beginPath();
 //same point as left arm
   ctx.moveTo(120,150);
+  //down right
   ctx.lineTo(150,170);
   ctx.stroke();
   }
+
+  //if 5 mistakes make left leg
   else if(chances==1){
     console.log("in chances 1");
   //code for left leg
-ctx.beginPath();
-
+  ctx.beginPath();
+  //bottom point of body
   ctx.moveTo(120,190);
+  //down left
   ctx.lineTo(90,210);
   ctx.stroke();
+  }
+
+  //if 6 mistakes make right leg also.Now hangman complete (Game over)
   else if (chances==0) {
     console.log("in chances 0");
   //code for right leg
-ctx.beginPath();
-
-//bottom of the body
+  ctx.beginPath();
+  //bottom of the body
   ctx.moveTo(120,190);
   //down right
   ctx.lineTo(150,210);
