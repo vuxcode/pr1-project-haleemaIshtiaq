@@ -39,6 +39,7 @@ var usedKeys=[];
 var random, guessedWord, letters;
 var currentHint="";
 var alphaButtons,char,correct,found;
+var alphabets;
 var winningCount=0;
 var gameEnded= false;
 var words=0;
@@ -111,20 +112,21 @@ function showKeypad(){
    document.addEventListener("keyup",getKey);
   
 //Get the container where alphabet buttons will be added
-    var alphabets=document.getElementById("alphabets");
+     alphabets=document.getElementById("alphabets");
     //Loop through ASCII values (65 to 90) to generate A-Z.. A=65 and Z=90
       for(var i=65;i<=90;i++){
         //converting ASCII values to characters(means corresponding letter A-Z)
          letters = String.fromCharCode(i);
          //create a new button element dynamically
          alphaButtons=document.createElement("button");
-        //writing letters on buttons
+        //display letter on button
         alphaButtons.innerHTML=letters;
-        //When the button is clicked run the function(Adding click event to each button)
-    //window.addEventListener("keyup",getKey);
-    //wordChecking(clickedKey);
 
-       alphaButtons.addEventListener("click",function(){
+       //store the letter for keyboard matching
+        alphaButtons.setAttribute("data-letter",letters.toLowerCase()) ;
+        
+        //When the button is clicked run the function(Adding click event to each button)
+         alphaButtons.addEventListener("click",function(){
             //change the cursor to indicate that button cannot be clicked again
             this.style.cursor="not-allowed";
         //disable the button that was clicked so user is not allowed to click it again to prevent the same guessess
@@ -176,8 +178,13 @@ key=event.key.toLowerCase();
           //avoiding same letter to be pressed.
           if(!usedKeys.includes(key)){
             usedKeys.push(key);
+
+            var btn=document.querySelector(`[data-letter="${key}"]`);
+            if(btn&& !btn.disabled){
+              btn.click();
+            }
             //send letter to word checking function
-        correct=wordChecking(key);
+        //correct=wordChecking(key);
         }
       }
       else{
