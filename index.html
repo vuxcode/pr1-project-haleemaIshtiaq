@@ -172,8 +172,8 @@ function getKey(event){
   //converting pressed key to lower case
 key=event.key.toLowerCase();
         console.log(key);
-        //check if its a letter
-        if(key>='a'&& key<='z'){
+        //check if its a letter(key.length is used to allow only single character alphabet keys(ignore Enter,Shift etc))
+        if(key.length==1 && key>='a'&& key<='z'){
           console.log("Letter pressed" +key);
           //avoiding same letter to be pressed.
          // if(!usedKeys.includes(key)){
