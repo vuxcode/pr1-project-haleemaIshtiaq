@@ -465,6 +465,10 @@ function drawHangman(){
   ctx.strokeStyle="blue";
   //Set thickness for better visibility
   ctx.lineWidth=4;
+  //Set rounded ends for lines
+  ctx.lineCap="round";
+  //Set smooth corners where lines meet
+  ctx.lineJoin="round";
   
   //start a new drawing path
   ctx.beginPath();
