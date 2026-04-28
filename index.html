@@ -169,6 +169,10 @@ function showKeypad(){
 
 //defining function for getting keys from keyboard
 function getKey(event){
+  //stop processing input if game has ended to prevent further actions(like alert function)
+  if(gameEnded){
+    return;
+  }
   //converting pressed key to lower case
 key=event.key.toLowerCase();
         console.log(key);
