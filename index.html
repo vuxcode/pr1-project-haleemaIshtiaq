@@ -176,17 +176,22 @@ key=event.key.toLowerCase();
         if(key>='a'&& key<='z'){
           console.log("Letter pressed" +key);
           //avoiding same letter to be pressed.
-          if(!usedKeys.includes(key)){
-            usedKeys.push(key);
-
+         // if(!usedKeys.includes(key)){
+           // usedKeys.push(key);To avoid redundancy i am deleting this because i am using button disabled state to prevent repeated guesses
+          //find the button that matches the pressed keyboard letter
             var btn=document.querySelector(`[data-letter="${key}"]`);
+            //if button exists and is not disabled click it automatically
+
             if(btn&& !btn.disabled){
               btn.click();
+            }
+            else{
+              alert("Already pressed");
             }
             //send letter to word checking function
         //correct=wordChecking(key);
         }
-      }
+      
       else{
         console.log("kindly enter letters");
         alert("kindly enter letters");
