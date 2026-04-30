@@ -67,6 +67,8 @@ var time,timeLeft,minutes,seconds;
 var restart,exit;
 var Key;
 var counter=false;
+var selected,category;
+
 //Create en element to connect to canvas
 var canvas= document.getElementById("hangMan");
 //Get the 2D context of the canvas
@@ -95,6 +97,16 @@ function timeBased(){
    function startGame() {
     //Hiding all the categories buttons
     selectionOfCategories.style.display="none";
+
+    selected=document.querySelector(`input[name="category"]:checked`);
+    //Show the message to user if category not selected
+    if(!selected){
+        alert("Please select a category");
+        return;
+     }
+    
+     category=selected.value;
+     console.log(category);
 
     //Making the hint button visible
     document.getElementById("hint").style.display="block";
