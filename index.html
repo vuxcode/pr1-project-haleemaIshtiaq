@@ -72,6 +72,7 @@ var selectedCategory=[];
 var selectedHint=[];
 
 var animals = ["tiger","rabbit","zebra","lion","monkey","kangaroo","dolphin","elephant","giraffe","frog"];
+var animalsHint=["A big striped wild cat","A small animal with long ears","An animal with black and white stripes","known as the king of jungle","An animal that climbs trees and likes bananas","An animal that jumps and has a pouch","A smart sea animal that swims and jumps out of water","The largest land animal with a trunk","Tall animal with a very long neck","An amphibian that lives on land and in water"]
 var countries=["pakistan","sweden","qatar","china","turkey","afghanistan","switzerland","england","egypt","palestine"];
 var food=["pizza","burger","pasta","cake","sandwich","donuts","rice","noodles","muffins","toast"];
 var nature=["mountains","rainbow","flowers","waterfall","volcano","lake","valley","desert","ocean","river"];
@@ -114,7 +115,7 @@ function timeBased(){
      }
     //Hiding all the categories buttons
     selectionOfCategories.style.display="none";
-    
+
      category=selected.value;
      console.log(category);
      selectCategory(category);
@@ -144,7 +145,7 @@ function selectCategory(){
         
 
 
-
+    //show game UI
     //Making the hint button visible
     document.getElementById("hint").style.display="block";
     //Making chances visible which is 6
