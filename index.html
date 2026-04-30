@@ -68,6 +68,15 @@ var restart,exit;
 var Key;
 var counter=false;
 var selected,category;
+var selectedCategory=[];
+var selectedHint=[];
+
+var animals = ["tiger","rabbit","zebra","lion","monkey","kangaroo","dolphin","elephant","giraffe","frog"];
+var countries=["pakistan","sweden","qatar","china","turkey","afghanistan","switzerland","england","egypt","palestine"];
+var food=["pizza","burger","pasta","cake","sandwich","donuts","rice","noodles","muffins","toast"];
+var nature=["mountains","rainbow","flowers","waterfall","volcano","lake","valley","desert","ocean","river"];
+var technology=["password","antivirus","laptop","software","artificialintelligence","cybersecurity","bluetooth","headphones","firewall","javascript"];
+
 
 //Create en element to connect to canvas
 var canvas= document.getElementById("hangMan");
@@ -107,6 +116,33 @@ function timeBased(){
     
      category=selected.value;
      console.log(category);
+     selectCategory(category);
+    }
+function selectCategory(){
+
+ if(category=="animals"){
+            selectedCategory= animals;
+          
+        }
+       else if(category=="food"){
+            selectedCategory= food;
+          
+        }
+         else if(category=="nature"){
+            selectedCategory= nature;
+          
+        }
+        else if(category=="technology"){
+            selectedCategory= technology;
+          
+        }
+        else if(category=="countries"){
+            selectedCategory= countries;
+          
+        }
+        
+
+
 
     //Making the hint button visible
     document.getElementById("hint").style.display="block";
