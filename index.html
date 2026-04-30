@@ -66,6 +66,7 @@ var words=0;
 var time,timeLeft,minutes,seconds;
 var restart,exit;
 var Key;
+var counter=false;
 //Create en element to connect to canvas
 var canvas= document.getElementById("hangMan");
 //Get the 2D context of the canvas
@@ -76,13 +77,25 @@ var time=document.getElementById("timeBased");
 time.addEventListener("click",timeBased);
 var timeless=document.getElementById("withoutTime");
 timeless.addEventListener("click",withoutTime);
-
+var selectionOfCategories=document.getElementById("selectionOfCategories");
 
 //creating function for time based game
 function timeBased(){
-
-    //displaying welcome message
+  //displaying welcome message
     document.getElementById("welcomeMessage").innerHTML="Welcome to time based ⏲️  Hangman Game<br><br><br><br>";
+  //Making categories buttons visible
+  selectionOfCategories.style.display="block";
+  //hiding tima and without time buttons
+  time.style.display="none";
+  timeless.style.display="none";
+  //Counter variable is made true to start the counter
+  counter=true;
+}
+
+   function startGame() {
+    //Hiding all the categories buttons
+    selectionOfCategories.style.display="none";
+
     //Making the hint button visible
     document.getElementById("hint").style.display="block";
     //Making chances visible which is 6
@@ -96,8 +109,10 @@ function timeBased(){
     showKeypad();
     //calling the function to pick up the random word
     wordsDisplay();
+    if(counter){
     //Call the function to start the timer
     startCountDown();
+    }
     
     //when hint button is clicked run the function showHint to show the hint to the user
     document.getElementById("hintButton").addEventListener("click",showHint);
@@ -108,7 +123,15 @@ function withoutTime(){
 
     //displaying welcome message
     document.getElementById("welcomeMessage").innerHTML="Welcome to Hangman Game.Take your time to guess.NO TIME STRESS🥳<br><br><br><br>";
-    //Making the hint button visible
+   //Making categories buttons visible
+  selectionOfCategories.style.display="block";
+  //hiding tima and without time buttons
+  time.style.display="none";
+  timeless.style.display="none";
+   
+   
+   
+    /*//Making the hint button visible
     document.getElementById("hint").style.display="block";
     ////Making chances visible which is 6
     document.getElementById("chancesMessage").style.display="block";
@@ -123,7 +146,7 @@ function withoutTime(){
      wordsDisplay();
      //drawHangman();
     //when hint button is clicked run the function showHint to show the hint to the user
-     document.getElementById("hint").addEventListener("click",showHint);
+     document.getElementById("hint").addEventListener("click",showHint);*/
 
 }
 
