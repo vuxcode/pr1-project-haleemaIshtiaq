@@ -28,6 +28,17 @@
 <!--Create a canvas element-->
 <canvas id="hangMan"  height="300" style="position: absolute; top: 80px; right:20px;"></canvas>
 
+<div id ="selectionOfCategories" style="display:none;text-align:center;">
+
+
+
+
+  
+</div>
+
+
+
+
 <script>
   //Declaring variables at the top  
 var chances;
@@ -190,7 +201,7 @@ key=event.key.toLowerCase();
               btn.click();
             }
             else{
-              alert("Already pressed");
+              alert(key +" is already pressed");
             }
             //send letter to word checking function
         //correct=wordChecking(key);
