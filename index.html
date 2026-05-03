@@ -77,6 +77,7 @@ var countries=["pakistan","sweden","qatar","china","turkey","afghanistan","switz
 var food=["pizza","burger","pasta","cake","sandwich","donuts","rice","noodles","muffins","toast"];
 var foodHint=["Italian food","A popular fast food made with a bun and meat inside","A type of italian food made from noodles","A sweet dessert often eaten on birthdays","A food made with bread and fillings in between","A sweet fried dessert usually shaped like a ring","A common food grain eaten in many countries","Long thin strips of dough made from flour","A small soft cake typically baked in a cup-shaped pan","Bread that is browned by heat"]
 var nature=["mountains","rainbow","flowers","waterfall","volcano","lake","valley","desert","ocean","river"];
+var natureHint=["Raised part of the earth","Seven colours in the sky","That bloom in spring","A natural attraction with flowing water from above","A mountain that can erupt with lava and fire","A natural water body surrounded by land","A low area of land between mountains or hills","A very dry place with sand","The five large bodies of water on earth","A natural flow of water that moves in one direction"]
 var technology=["password","antivirus","laptop","software","artificialintelligence","cybersecurity","bluetooth","headphones","firewall","javascript"];
 
 
@@ -138,6 +139,8 @@ function selectCategory(){
         }
          else if(category=="nature"){
             selectedCategory= nature;
+            //assign nature hint to selected hint array
+            selectedHint=natureHint;
           
         }
         else if(category=="technology"){
