@@ -125,10 +125,15 @@ function selectCategory(){
 
  if(category=="animals"){
             selectedCategory= animals;
+           //assign animals hint to selected hint array
+           selectedHint=animalsHint;
           
         }
        else if(category=="food"){
             selectedCategory= food;
+            
+          //assign food hint to selected hint array
+            selectedHint=foodHint;
           
         }
          else if(category=="nature"){
@@ -309,9 +314,9 @@ drawHangman();
 document.getElementById("chancesMessage").innerHTML="chances left: "+chances+"/6";
 document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
    //Creating an array that contains words
-    arr=["rainbow","sunlight","pizza","antivirus","password","reflection","earth","adventure","mountain","planet"];
+    //arr=["rainbow","sunlight","pizza","antivirus","password","reflection","earth","adventure","mountain","planet"];
     //Creating an array for hints
-    hints=["Seven colours in the sky","That comes from the sun","Italian food","Protect the computers","Used for security reasons"," The image of something in a mirror or any reflective surface.","The only place to live.","An unusal,exciting or possibly dangerous activity.","A raised part of the earth's surface","Earth is the example of this."]
+    //hints=["Seven colours in the sky","That comes from the sun","Italian food","Protect the computers","Used for security reasons"," The image of something in a mirror or any reflective surface.","The only place to live.","An unusal,exciting or possibly dangerous activity.","A raised part of the earth's surface","Earth is the example of this."]
     //Clearing the existing text or message from the screen before showing the next word
     document.getElementById("finalMessage").innerHTML= "";
     //Making the hint button visible for the next word
@@ -336,7 +341,7 @@ document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
     //Picking up the random word by using the random number
      randomWord=selectedCategory[random];
     //picking the hint for that random word
-    currentHint= hints[random];
+    currentHint= selectedHint[random];
     console.log("Word chosen is :" +randomWord);
 
     //creating the blank spaces(-) according to the length of the word and store as array..split separates the characters and store in array['_','_','_','_','_']..join concatenates the characters-----
