@@ -89,7 +89,7 @@ For example:
           - Stops the game and disable the buttons when game ends.
       
     - *Implemented word tracking logic and created a div to display correctly guessed words on screen.*   
-    - *Added `enableButtons` function to enable keypad buttons for next loaded word.     
+    - *Added `enableButtons` function to enable keypad buttons for next loaded word.*     
 
 - 2022-04-17 02:00 Worked for 3 hours.     
     - *Implemented a 2-minute countdown timer for Time Based mode.*
@@ -112,7 +112,7 @@ For example:
 
 - 2022-04-23 09:00 Worked for 4 hours.  
      - *Completed hangman drawing using canvas in the drawHangman function.*
-     - *Integrated drawing with game logic and finalized the hangman functionality. *   
+     - *Integrated drawing with game logic and finalized the hangman functionality.*   
 
 - 2022-04-28 09:00 Worked for 4 hours.  
     - *Worked on keyboard support.*
