@@ -8,17 +8,19 @@ For example:
     - *List the things you have done.*
     - *Planned the game design.*
       
-          - listed the main features
+          - listed the main features.
           - Designed a  basic flowchart for the game flow.
-          -  Planned how the Hangman Game interface should looks.
+          - Planned how the Hangman Game interface should looks.
   
 - 2022-03-25 10:00 Worked for 1 hour.
     - *Created the first page of the game.*
+      
           - Added the main heading and welcome message.
           - Added Time Based and Without Time game mode buttons.
 
 - 2022-03-26 10:00 Worked for 1.5 hour.
     - *Created the second page of the game.*
+      
           - Connected buttons using JavaScript event listeners.
           - Created separate functions for Time Based and Without Time modes (buttons).
           - Updated the welcome message when a mode is selected.
@@ -26,7 +28,9 @@ For example:
 
 - 2022-03-27 18:00 Worked for 3 hours.
     - *Worked on displaying the keypad.*
+      
           - Created a `showKeypad` function which includes:
+      
               - Dynamic generation of A-Z buttons using JavaScript.
               - Conversion of ASCII values into letters from A to Z.
               - Displaying of generated buttons on the page using `appendChild()`.
@@ -35,7 +39,9 @@ For example:
        
 - 2022-03-30 15:43 Worked for 3 hours.
     - *Worked on random word display.*
+      
           - Created a  `wordsDisplay` function which includes:
+      
               - An Array of words (Initially containing three words).
               - Use of `Math.random()` to select a random word.
               - Displaying of blank dashes based on the length of the selected word.
