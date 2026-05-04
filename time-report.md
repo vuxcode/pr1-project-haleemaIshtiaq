@@ -9,9 +9,7 @@ For example:
     - *Planned the game design.*
 
           -  listed the main features.
-
           -  Designed a  basic flowchart for the game flow.
-
           -  Planned how the Hangman Game interface should looks.
   
 - 2022-03-25 10:00 Worked for 1 hour.
