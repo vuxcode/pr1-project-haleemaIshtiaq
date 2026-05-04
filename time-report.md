@@ -72,7 +72,7 @@ For example:
 - 2022-04-16 09:00 Worked for 3 hours.    
     - *More worked on hint system.*
       
-          - Created a separate `div`(`hintText`) to show hints clearly on screen.
+          - Created a separate`div` with id `hintText` to show hints clearly on screen.
           - Added logic to hide the hint button after use.
           - Made Hint button disabled if user guess the word wrong and not used the hint.
       
