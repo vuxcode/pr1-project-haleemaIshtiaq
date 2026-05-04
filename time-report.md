@@ -49,9 +49,9 @@ For example:
     - *Made a first commit after completing initial development(24-30 March)*.
 
 - 2022-04-08 10:00 Worked for 5 hours.
-    - *Worked on word display, input handling and game logic improvements.*
+    - *Worked on word display,input handling and game logic improvements.*
       
-        - Created a separate `wordChecking` function to separate the letter checking logic from `wordsDisplay`.
+       - Created a separate `wordChecking` function to separate the letter checking logic from `wordsDisplay`.
         - used `split()` and `join()` to manage the guessed word as an array and update it dynamically.
         - Implemented logic to display user-entered characters in the correct positions(tested via console).
         - Replaced `prompt()` input by integrating keypad button input with the `wordChecking` function.
