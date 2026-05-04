@@ -6,6 +6,7 @@
 <button id="timeBased" style="color:blue;cursor:pointer;"><span style=" font-size:20px;">Time based game</span><br> Time linmit 2 minutes</button>
 <button id="withoutTime" style="color:blue;cursor:pointer;"><span style=" font-size:20px;">Without Time</span> <br>No time limit</button>
 </center>
+<h3 id="categoryDisplay" style="text-align:center;margin-top:-50px;"></h3>
 <div id="randomWord" style="text-align:center;font-size:30px;letter-spacing:10px; font-weight:bold;"></div>
 <div id="hint" style="display:none;text-align:center;">
  <button id="hintButton" style="padding:10px;color:yellow;cursor:pointer;display:block;margin:auto;">Hint</button>
@@ -79,7 +80,7 @@ var foodHint=["Italian food","A popular fast food made with a bun and meat insid
 var nature=["mountains","rainbow","flowers","waterfall","volcano","lake","valley","desert","ocean","river"];
 var natureHint=["Raised part of the earth","Seven colours in the sky","That bloom in spring","A natural attraction with flowing water from above","A mountain that can erupt with lava and fire","A natural water body surrounded by land","A low area of land between mountains or hills","A very dry place with sand","The five large bodies of water on earth","A natural flow of water that moves in one direction"]
 var technology=["password","antivirus","laptop","software","artificialintelligence","cybersecurity","bluetooth","headphones","firewall","javascript"];
-
+var technologyHint=["Used for security reasons","Protects the computers","A portable computer used for work or study","Programs and applications that run on a computer","Technology that allows machines to think and learn like humans","Protection of computers and data from hackers","Wireless technology used to connect devices over short distances","A device worn on ears to listen to sound","A security system that blocks unauthorized access to a network","A programming language used to make web pages attractive"]
 
 //Create en element to connect to canvas
 var canvas= document.getElementById("hangMan");
@@ -145,7 +146,8 @@ function selectCategory(){
         }
         else if(category=="technology"){
             selectedCategory= technology;
-          
+            //assign technology hint to selected hint array
+            selectedHint=technologyHint;
         }
         else if(category=="countries"){
             selectedCategory= countries;
@@ -316,6 +318,7 @@ ctx.clearRect(0,0,canvas.width,canvas.height);
 drawHangman();
 document.getElementById("chancesMessage").innerHTML="chances left: "+chances+"/6";
 document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
+document.getElementById("categoryDisplay").innerHTML="Find the hidden word.The category is " +category +"." +"<br>" +" Enjoy your game.";
    //Creating an array that contains words
     //arr=["rainbow","sunlight","pizza","antivirus","password","reflection","earth","adventure","mountain","planet"];
     //Creating an array for hints
@@ -533,6 +536,7 @@ function showEndButtons(){
   //When button is clicked call exitGame fuction to exit the game 
   exit.addEventListener("click",exitGame);
   //Making all other elements on the page invisible except final message
+  document.getElementById("categoryDisplay").style.display="none";
     document.getElementById("hint").style.display="none";
     document.getElementById("chancesMessage").style.display="none";
     document.getElementById("words").style.display="none";
