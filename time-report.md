@@ -51,12 +51,12 @@ For example:
 - 2022-04-08 10:00 Worked for 5 hours.
     - *Worked on word display,input handling and game logic improvements.*
       
-       - Created a separate `wordChecking` function to separate the letter checking logic from `wordsDisplay`.
-        - used `split()` and `join()` to manage the guessed word as an array and update it dynamically.
-        - Implemented logic to display user-entered characters in the correct positions(tested via console).
-        - Replaced `prompt()` input by integrating keypad button input with the `wordChecking` function.
-        - Created a `disableButtons` function to disable alphabet buttons after selection to prevent repeated input.
-        -Improved win and lose messages and displayed them on the screen.
+          - Created a separate `wordChecking` function to separate the letter checking logic from `wordsDisplay`.
+          - used `split()` and `join()` to manage the guessed word as an array and update it dynamically.
+          - Implemented logic to display user-entered characters in the correct positions(tested via console).
+          - Replaced `prompt()` input by integrating keypad button input with the `wordChecking` function.
+          - Created a `disableButtons` function to disable alphabet buttons after selection to prevent repeated input.
+          -Improved win and lose messages and displayed them on the screen.
 
 - 2022-04-09 10:45 Worked for 3 hours.   
     - *worked on hint system .*
