@@ -7,17 +7,10 @@ For example:
 - 2022-03-24 18:00 Worked for 1 hour.
     - *List the things you have done.*
     - *Planned the game design.*
-<<<<<<< HEAD
 
           -  listed the main features.
           -  Designed a  basic flowchart for the game flow.
           -  Planned how the Hangman Game interface should looks.
-=======
-      
-          - listed the main features.
-          - Designed a  basic flowchart for the game flow.
-          - Planned how the Hangman Game interface should looks.
->>>>>>> 2d6012af5df8feb0982849732ac7e096546dc271
   
 - 2022-03-25 10:00 Worked for 1 hour.
     - *Created the first page of the game.*
