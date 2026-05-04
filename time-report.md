@@ -50,6 +50,7 @@ For example:
 
 - 2022-04-08 10:00 Worked for 5 hours.
     - *Worked on word display, input handling and game logic improvements.*
+      
         - Created a separate `wordChecking` function to separate the letter checking logic from `wordsDisplay`.
         - used `split()` and `join()` to manage the guessed word as an array and update it dynamically.
         - Implemented logic to display user-entered characters in the correct positions(tested via console).
@@ -59,62 +60,77 @@ For example:
 
 - 2022-04-09 10:45 Worked for 3 hours.   
     - *worked on hint system .*
+      
           - Created a showHint function.
           - Created an array to provide hints for each word.
-          - Developed logic to display the correct hint based on the selected word.     
+          - Developed logic to display the correct hint based on the selected word.
+         
     - *Added hover effects on keypad buttons and added pointer cursor to buttons.*
     - *Created a `div` to display the final game result (win or lose message).* 
     - *Added a `div` to show remaining chances on the screen dynamically.*     
 
 - 2022-04-16 09:00 Worked for 3 hours.    
     - *More worked on hint system.*
+      
           - Created a separate `div`(`hintText`) to show hints clearly on screen.
           - Added logic to hide the hint button after use.
           - Made Hint button disabled if user guess the word wrong and not used the hint.
-    - *Improved game flow.*      
+      
+    - *Improved game flow.*
+           
           - Loads the next word after a correct guess.
           - clears previous messages and hint before showing the next word.
           - Prevents repitition of choosing the same random word with help of index tracking.
+      
     - *Implemented win condition logic.*
+      
           - Display the final message if user guess 5 consecutive words correctly.
           - Used `setTimeout()` to delay 5 seconds in loading the next word so user can see the feedback.
           - Stops the game and disable the buttons when game ends.
+      
     - *Implemented word tracking logic and created a div to display correctly guessed words on screen.*   
     - *Added `enableButtons` function to enable keypad buttons for next loaded word.     
 
 - 2022-04-17 02:00 Worked for 3 hours.     
     - *Implemented a 2-minute countdown timer for Time Based mode.*
+      
           - Created a startCountDown function.
+      
               - Created a `div` to display the counter on screen.
               - Stopped the timer using `clearInterval()` function when time is over and displayed message of time over on screen.
 
 - 2022-04-20 01:00 Worked for 1 hour.      
-     - *Created restart and exit buttons.*   
+     - *Created restart and exit buttons.*
+       
            - showRestart function is added to hide all other game elements and display restart and exit buttons.
            - Added event listeners for both buttons.
            - Exit button displays a thankyou message.
            - Restart button reloads the game.
 
 - 2022-04-22 02:00 Worked for 1 hour.  
-     - Created a canvas element and created a function `drawHangman`  .
+     - *Created a canvas element and created a function `drawHangman`  .*
 
 - 2022-04-23 09:00 Worked for 4 hours.  
-     - Completed hangman drawing using canvas in the drawHangman function.
-     - Integrated drawing with game logic and finalized the hangman functionality.    
+     - *Completed hangman drawing using canvas in the drawHangman function.*
+     - *Integrated drawing with game logic and finalized the hangman functionality. *   
 
 - 2022-04-28 09:00 Worked for 4 hours.  
     - *Worked on keyboard support.*
+      
           - Added keyboard input so users can eneter letters directly through keyboard.
           - Synchronized keyboard input with keypad buttons on screen.
           - Implemented validation to allow only single aplphabet characters.
           - Added an alert message for already pressed keys.
+      
     - *Worked on layout and readability.*
+      
           - Increased font size for better word display.
           - positioned the hangman canvas at the top right. 
           - Enhanced the hangman drawing by increasing line thickness and adding rounded line ends and smoother corners.  
 
 - 2022-04-30 02:00 Worked for 3 hours.    
     - *Implemented category selection feature.*
+      
           - Created radio buttons for five categories.
           - Defined separate word arrays for each category.
           - Integrated selected category with the game logic.
@@ -122,6 +138,7 @@ For example:
 
 - 2022-05-03 09:15 Worked for 1 hour.  
     - *Added hint support for categories.*
+      
           - Created separate hint arrays for each category.   
           - Displayed hints dynamically based on the selected category.          
                               
