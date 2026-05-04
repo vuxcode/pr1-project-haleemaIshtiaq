@@ -95,10 +95,8 @@ For example:
     - *Implemented a 2-minute countdown timer for Time Based mode.*
       
           - Created a startCountDown function.
-      
-              - Created a `div` to display the counter on screen.
-      
-              - Stopped the timer using `clearInterval()` function when time is over and displayed message of time over on screen.
+          - Created a `div` to display the counter on screen.
+          - Stopped the timer using `clearInterval()` function when time is over and displayed message of time over on screen.
 
 - 2022-04-20 01:00 Worked for 1 hour.      
      - *Created restart and exit buttons.*
