@@ -141,13 +141,14 @@ For example:
           - Created separate hint arrays for each category.   
           - Displayed hints dynamically based on the selected category. 
 
-- 2022-05-04 to 2022-05-11 09:15 Worked for 6 hours.   
+- 2022-05-04 to 2022-05-11 09:15 Worked for approx 6 to 8 hours.   
     - *Added refresh feature.*   
 
           - Created saveGame() function for saving game data.
-          - Created loadGame() function for restoring values.
-          - Created recolouringKeypad() function for restoring keypad buttons colour and states after refresh.
-          - Updated other functions to support refresh feature.
+          - Created loadGame() function for restoring saved values.
+          - Created recolouringKeypad() function for restoring keypad buttons colours and states after refresh.
+          - Updated other functions to support the refresh feature.
+          - Fixed the bugs related to page refresh.
                               
 
 
