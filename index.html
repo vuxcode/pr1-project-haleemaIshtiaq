@@ -259,17 +259,36 @@ window.onload=function(){
 //creating function for time based game
 function timeBased(){
   //displaying welcome message
-    document.getElementById("welcomeMessage").innerHTML="Welcome to time based ⏲️  Hangman Game<br><br><br><br>";
-  //Making categories buttons visible
-  selectionOfCategories.style.display="block";
+  document.getElementById("welcomeMessage").innerHTML="Welcome to time based ⏲️  Hangman Game<br><br><br><br>";
   //hiding tima and without time buttons
   time.style.display="none";
   timeless.style.display="none";
   //Counter variable is made true to start the counter
   counter=true;
+  //Making categories buttons visible
+  selectionOfCategories.style.display="block";
+  //Calling saveGame function to save current game data
+  //Here ,saving welcomeMessage and counter value in local storage via saveGame
+  saveGame();
 }
 
-   function startGame() {
+
+//creating function for game without time limit
+function withoutTime(){
+  //displaying welcome message
+  document.getElementById("welcomeMessage").innerHTML="Welcome to Hangman Game.Take your time to guess.NO TIME STRESS🥳<br><br><br><br>";
+  //hiding tima and without time buttons
+  time.style.display="none";
+  timeless.style.display="none";
+  //Making categories buttons visible
+  selectionOfCategories.style.display="block";
+  //Calling saveGame function to save current game data
+  //Here ,saving welcomeMessage in local storage via saveGame
+   saveGame();
+}
+  
+
+function startGame() {
     selected=document.querySelector(`input[name="category"]:checked`);
     //Show the message to user if category not selected
     if(!selected){
@@ -341,37 +360,7 @@ function selectCategory(){
 }
 
 
-//creating function for game without time limit
-function withoutTime(){
 
-    //displaying welcome message
-    document.getElementById("welcomeMessage").innerHTML="Welcome to Hangman Game.Take your time to guess.NO TIME STRESS🥳<br><br><br><br>";
-   //Making categories buttons visible
-  selectionOfCategories.style.display="block";
-  //hiding tima and without time buttons
-  time.style.display="none";
-  timeless.style.display="none";
-   
-   
-   
-    /*//Making the hint button visible
-    document.getElementById("hint").style.display="block";
-    ////Making chances visible which is 6
-    document.getElementById("chancesMessage").style.display="block";
-    //Making number of words to be guessed visible which is 5 for winning the game
-    document.getElementById("words").style.display="block";
-    //hiding all other buttons
-    document.getElementById("timeBased").style.display="none";
-    document.getElementById("withoutTime").style.display="none";
-    //calling the function to show the keypad to the user
-     showKeypad();
-    //calling the function to pick up the random word
-     wordsDisplay();
-     //drawHangman();
-    //when hint button is clicked run the function showHint to show the hint to the user
-     document.getElementById("hint").addEventListener("click",showHint);*/
-
-}
 
 //Defining the function to show the buttons to the user(keypad)
 function showKeypad(){
