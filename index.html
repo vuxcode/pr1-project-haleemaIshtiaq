@@ -287,20 +287,30 @@ function withoutTime(){
    saveGame();
 }
   
-
+//Function for starting the game
 function startGame() {
-    selected=document.querySelector(`input[name="category"]:checked`);
-    //Show the message to user if category not selected
+//Getting selected categories from radio buttons
+  selected=document.querySelector(`input[name="category"]:checked`);
+  //Show the message to user if category is not selected
     if(!selected){
         alert("Please select a category");
         return;
-     }
-    //Hiding all the categories buttons
-    selectionOfCategories.style.display="none";
-     ategory=selected.value;
-     console.log(category);
-     selectCategory(category);
     }
+  //Assigning load true because game has started
+  load=true; 
+  //Hiding all the categories buttons
+  selectionOfCategories.style.display="none";
+  //Getting selected category value
+  category=selected.value;
+  console.log(category);
+  //Calling function selectCategory and sending value of selected category
+  //This function gets the array of 10 words of selected category and its corresponding hint array
+  selectCategory(category);
+  //Calling saveGame function to save current game data
+  //Here saving load value and category in local storage
+  saveGame();
+
+  }
 
 
 function selectCategory(){
