@@ -773,16 +773,24 @@ function showEndButtons(){
 
 }
 function exitGame(){
+//Showing message on the screen  
 output.innerText="Thankyou for playing the game";
+//Hiding all other elements
+//Hiding the final message(win or lose message)
 document.getElementById("finalMessage").style.display="none";
+//Hiding exit and restart buttons
 exit.style.display="none";
 restart.style.display="none";
+//Hiding welcome message
 document.getElementById("welcomeMessage").style.display="none";
-
+//Clear all data from local storage
+localStorage.clear();
 }
 //Making a function to load the game again
   function restartGame(){
-    
+    //clear the local storage
+    localStorage.clear();
+    //reload the game
     location.reload();
     
 }
