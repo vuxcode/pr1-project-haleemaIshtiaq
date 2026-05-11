@@ -795,10 +795,10 @@ localStorage.clear();
     
 }
 function drawHangman(){
-  if(chances==6){
+  
    
   //clear the whole canvas
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+  //ctx.clearRect(0,0,canvas.width,canvas.height);
   //set drawing color to blue
   ctx.strokeStyle="blue";
   //Set thickness for better visibility
@@ -807,7 +807,7 @@ function drawHangman(){
   ctx.lineCap="round";
   //Set smooth corners where lines meet
   ctx.lineJoin="round";
-  
+  if(chances==6){
   //start a new drawing path
   ctx.beginPath();
   //-----Draw base line
