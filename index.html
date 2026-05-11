@@ -494,9 +494,16 @@ saveGame();
 
 //Making a function to select the random word
 function wordsDisplay(){
+load=true;
 chances=6;
+problem=false;
+hintTrack=false;
+correctButtons=[];
+wrongButtons=[];
 ctx.clearRect(0,0,canvas.width,canvas.height);
 drawHangman();
+document.getElementById("quit").style.display="block";
+document.getElementById("quit").addEventListener("click",quitDisplay);
 document.getElementById("chancesMessage").innerHTML="chances left: "+chances+"/6";
 document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
 document.getElementById("categoryDisplay").innerHTML="Find the hidden word.The category is " +category +"." +"<br>" +" Enjoy your game.";
@@ -508,12 +515,15 @@ document.getElementById("categoryDisplay").innerHTML="Find the hidden word.The c
     document.getElementById("finalMessage").innerHTML= "";
     //Making the hint button visible for the next word
     document.getElementById("hintButton").style.display="block";
+    document.getElementById("hintButton").addEventListener("click",showHint);
     //checking if user guessed 5 words correctly then display message that user has won 
     enableButtons();
     if(winningCount == 5){
       document.getElementById("finalMessage").innerHTML+= "<br><br>" +"You have won the game";
       disableButtons();
       gameEnded = true;
+      load=false;
+      localStorage.clear();
       return;
     }
     //using do while loop to check that the random number generated must be different for the next chosen word
@@ -536,6 +546,7 @@ document.getElementById("categoryDisplay").innerHTML="Find the hidden word.The c
     console.log("pickWord:", guessedWord.join(""));
     document.getElementById("randomWord").innerHTML = guessedWord.join("") ;
     enableButtons();
+    saveGame();
 }
 
 //Making a function for validation
@@ -549,9 +560,11 @@ function wordChecking(char){
         }
         found=false;
         console.log(char);
+        
         //Checking for validation
         if(randomWord.includes(char)){
             found=true;
+            correctButtons.push(char);
           for(var i=0; i< randomWord.length;i++){
             if(randomWord[i]==char){
                 guessedWord[i]=char;
@@ -560,21 +573,26 @@ function wordChecking(char){
           console.log("correct:", guessedWord.join("")); 
           //Writing the correct letter on the screen 
           document.getElementById("randomWord").innerHTML = guessedWord.join("") ;
+          saveGame();
           }
         }
         else{
+          wrongButtons.push(char);
           chances--;
           console.log("Wrong guess. Attempts left",  chances);
           document.getElementById("chancesMessage").innerHTML="chances left: "+chances+"/6";
           drawHangman();
+          saveGame();
         }
 //}
 //Showing the final result if the player guessed the right word
 if(!guessedWord.includes("-")){
     console.log("you win word was;" ,randomWord);
-    document.getElementById("finalMessage").innerHTML= "<br><br>" +"You guessed the right word <br><br>  Next word is";
+  
+    document.getElementById("finalMessage").innerHTML= "<br>" +"You guessed the right word. Next word is..";
     winningCount++;
     document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
+    saveGame();
     //Disable keypad during pause before loading the next word
       disableButtons();
       //Showing the result if player guessed all five words correctly
@@ -582,8 +600,10 @@ if(!guessedWord.includes("-")){
         document.getElementById("finalMessage").innerHTML= "<br><br>" +"You have won the game";
         //disableButtons();
         gameEnded=true;
+        load=false;
         //Stop the times because game is ended
         clearInterval(time);
+        localStorage.clear();
         setTimeout(showEndButtons,5000);
         
 
@@ -617,8 +637,10 @@ else if(chances<=0) {
    disableButtons();
    document.getElementById("hintButton").disabled=true;
    gameEnded=true;
+   load=false;
    //stop the timer because game is ended
    clearInterval(time);
+   localStorage.clear();
    setTimeout(showEndButtons,5000);
 }
 //returning the value to make  a button either green or red
