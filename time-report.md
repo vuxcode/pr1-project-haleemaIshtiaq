@@ -107,7 +107,7 @@ For example:
            - Restart button reloads the game.
 
 - 2022-04-22 02:00 Worked for 1 hour.  
-     - *Created a canvas element and created a function `drawHangman`  .*
+     - *Created a canvas element and created a function `drawHangman`.*
 
 - 2022-04-23 09:00 Worked for 4 hours.  
      - *Completed hangman drawing using canvas in the drawHangman function.*
@@ -139,7 +139,15 @@ For example:
     - *Added hint support for categories.*
       
           - Created separate hint arrays for each category.   
-          - Displayed hints dynamically based on the selected category.          
+          - Displayed hints dynamically based on the selected category. 
+
+- 2022-05-04 to 2022-05-11 09:15 Worked for 6 hours.   
+    - *Added refresh feature.*   
+
+          - Created saveGame() function for saving game data.
+          - Created loadGame() function for restoring values.
+          - Created recolouringKeypad() function for restoring keypad buttons colour and states after refresh.
+          - Updated other functions to support refresh feature.
                               
 
 
