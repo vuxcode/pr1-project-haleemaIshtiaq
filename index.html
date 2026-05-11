@@ -58,7 +58,7 @@ var usedKeys=[];
 var selectedCategory=[];
 var selectedHint=[];
 
-var cahnces,random, guessedWord, letters;
+var cahnces,random, guessedWord, letters,btn;
 var currentHint="";
 var alphaButtons,char,correct,found;
 var alphabets;
@@ -289,7 +289,10 @@ function withoutTime(){
   
 //Function for starting the game
 function startGame() {
-//Getting selected categories from radio buttons
+//Getting selected category from radio buttons
+//querySelecter is used to find and return a matching HTML element
+//There are five radio buttons with the same name category
+//It gets the checked(selected) category button and stores it in variable (selected)
   selected=document.querySelector(`input[name="category"]:checked`);
   //Show the message to user if category is not selected
     if(!selected){
@@ -303,43 +306,46 @@ function startGame() {
   //Getting selected category value
   category=selected.value;
   console.log(category);
-  //Calling function selectCategory and sending value of selected category
-  //This function gets the array of 10 words of selected category and its corresponding hint array
-  selectCategory(category);
   //Calling saveGame function to save current game data
   //Here saving load value and category in local storage
   saveGame();
-
+  //Calling function selectCategory and sending selected category value (animals,countries,nature,technology,food) depending what user selection
+  //This function gets the array of 10 words and corresponding hint array of selected category 
+  selectCategory(category);
   }
 
-
+//Function for selection of category
 function selectCategory(){
 
  if(category=="animals"){
+           //assign animals array to selected category array
             selectedCategory= animals;
-           //assign animals hint to selected hint array
+           //assign animals hint array to selected hint array
            selectedHint=animalsHint;
           
         }
        else if(category=="food"){
-            selectedCategory= food;
-            
-          //assign food hint to selected hint array
-            selectedHint=foodHint;
+        //assign food array to selected category array
+        selectedCategory= food;
+        //assign food hint to selected hint array
+        selectedHint=foodHint;
           
         }
          else if(category=="nature"){
+          //assign nature array to selected category array
             selectedCategory= nature;
             //assign nature hint to selected hint array
             selectedHint=natureHint;
           
         }
         else if(category=="technology"){
+          //assign technology array to selected category array
             selectedCategory= technology;
             //assign technology hint to selected hint array
             selectedHint=technologyHint;
         }
         else if(category=="countries"){
+            //assign countries array to selected category array
             selectedCategory= countries;
             //assign technology hint to selected hint array
             selectedHint=countriesHint;
@@ -360,59 +366,70 @@ function selectCategory(){
     showKeypad();
     //calling the function to pick up the random word
     wordsDisplay();
+    //If counter is true then start count down because user has selected time based mode game
     if(counter){
     //Call the function to start the timer
     startCountDown();
+    //Calling saveGame function to save current game data
+    //Here saving timer left value
+    saveGame();
     }
     
-    //when hint button is clicked run the function showHint to show the hint to the user
-    document.getElementById("hintButton").addEventListener("click",showHint);
+  //when hint button is clicked run the function showHint to show the hint to the user
+  document.getElementById("hintButton").addEventListener("click",showHint);
+  //Calling saveGame function to save current game data
+  //Here saving selected category and corresponding hint arrays
+    saveGame();
 }
 
 
 
 
-//Defining the function to show the buttons to the user(keypad)
+//Defining the function to show buttons to the user(keypad)
 function showKeypad(){
-   document.addEventListener("keyup",getKey);
+
+  //Calling getKey function when user presses a keyboard key
+  document.addEventListener("keyup",getKey);
   
-//Get the container where alphabet buttons will be added
-     alphabets=document.getElementById("alphabets");
-    //Loop through ASCII values (65 to 90) to generate A-Z.. A=65 and Z=90
+  //Get the container where alphabet buttons will be added
+  alphabets=document.getElementById("alphabets");
+  //Loop through ASCII values (65 to 90) to generate A-Z.. A=65 and Z=90
       for(var i=65;i<=90;i++){
         //converting ASCII values to characters(means corresponding letter A-Z)
-         letters = String.fromCharCode(i);
-         //create a new button element dynamically
-         alphaButtons=document.createElement("button");
+        letters = String.fromCharCode(i);
+        //create a new button element dynamically
+        alphaButtons=document.createElement("button");
         //display letter on button
-        alphaButtons.innerHTML=letters;
+         alphaButtons.innerHTML=letters;
 
-       //store the letter for keyboard matching
+        //store the letter for keyboard matching
         alphaButtons.setAttribute("data-letter",letters.toLowerCase()) ;
         
         //When the button is clicked run the function(Adding click event to each button)
-         alphaButtons.addEventListener("click",function(){
-            //change the cursor to indicate that button cannot be clicked again
-            this.style.cursor="not-allowed";
+        alphaButtons.addEventListener("click",function(){
+        //change the cursor to indicate that button cannot be clicked again
+        this.style.cursor="not-allowed";
         //disable the button that was clicked so user is not allowed to click it again to prevent the same guessess
-            this.disabled = true;
-            
-            //Sending the clicked letter after converting it to lower case to word checking function for validation 
-            
-             correct= wordChecking(this.innerHTML.toLowerCase());
-            //Chnging the colour of clicked button to green if guess is correct
+        this.disabled = true;
+        //assign the letter which is clicked to variable "char" after converting it to lower case
+        char=this.innerHTML.toLowerCase();
+        //Save the game data by calling saveGame function
+        saveGame();
+        //Sending the clicked letter after converting it to lower case to word checking function for validation 
+        correct= wordChecking(this.innerHTML.toLowerCase());
+          //Chnging the colour of clicked button to green if guess is correct
              if(correct){
                this.style.backgroundColor= "green";
                this.style.color= "white";
              }
-             //Changing the colour of clicked button to red if guess is incorrect
+          //Changing the colour of clicked button to red if guess is incorrect
              else{
                this.style.backgroundColor= "red";
                this.style.color= "white";
              }
             });
-            //Adding hover effect.When user move cursor it becomes hand
-            alphaButtons.style.cursor="pointer";
+        //Adding hover effect.When user move cursor it becomes hand
+        alphaButtons.style.cursor="pointer";
         //setting colour of letters to blue
         alphaButtons.style.color= "blue";
         ////setting font size of letters to 20px
@@ -439,19 +456,24 @@ function getKey(event){
     return;
   }
   //converting pressed key to lower case
-key=event.key.toLowerCase();
-        console.log(key);
-        //check if its a letter(key.length is used to allow only single character alphabet keys(ignore special keys like Enter,Shift etc))
-        if(key.length==1 && key>='a'&& key<='z'){
-          console.log("Letter pressed" +key);
-          //avoiding same letter to be pressed.
-         // if(!usedKeys.includes(key)){
-           // usedKeys.push(key);To avoid redundancy i am deleting this because i am using button disabled state to prevent repeated guesses
-          //find the button that matches the pressed keyboard letter
-            var btn=document.querySelector(`[data-letter="${key}"]`);
+  key=event.key.toLowerCase();
+  console.log(key);
+  //Calling saveGame function to save value of key in local storage
+  saveGame();
+  //check if its a letter(key.length is used to allow only single character alphabet keys(ignore special keys like Enter,Shift etc))
+    if(key.length==1 && key>='a'&& key<='z'){
+        console.log("Letter pressed" +key);
+        //avoiding same letter to be pressed.
+        // if(!usedKeys.includes(key)){
+        // usedKeys.push(key);To avoid redundancy i am deleting this because i am using button disabled state to prevent repeated guesses
+        //find the button that matches the pressed keyboard letter
+         btn=document.querySelector(`[data-letter="${key}"]`);
+           //This is for refresh feature.After refresh if user press same button then show a message that it is alraedy pressed
+             if(correctButtons.includes(key)||wrongButtons.includes(key)){
+               alert(key +" is already pressed");
+             }
             //if button exists and is not disabled click it automatically
-
-            if(btn&& !btn.disabled){
+            else if(btn&& !btn.disabled){
               btn.click();
             }
             else{
@@ -466,9 +488,7 @@ key=event.key.toLowerCase();
         alert("kindly enter letters");
       }
 
-
-   
-
+saveGame();
 }
 
 
