@@ -52,5 +52,11 @@ This problem was solved by clearing the previous messages before loading next wo
 **Solution:**
 Restricted keyboard input to a single alphabet character from a to z.This means that special keys and other characters are ignored and an alert message is shown when invalid input is entered. 
 
+## 7. Problem: *Not loading the next word after refreshing within 5 seconds delay time* 
+**Problem:**
+The game stucks when page is refreshed within 5 seconds delay time(Time for loading next random word).
+
+**Solution:**
+Declaring and assigning variable `problem` true so that wordsDisplay function is called from loadGame function after refresh.This removes the bug.
 
  
