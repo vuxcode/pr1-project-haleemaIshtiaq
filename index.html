@@ -117,6 +117,28 @@ timeless.addEventListener("click",withoutTime);
 var selectionOfCategories=document.getElementById("selectionOfCategories");
 
 
+//Function for saving current game state in local storage
+function saveGame(){
+//First tried for random words and current hint.Succeeded getting values after refresh. 
+//localStorage.setItem("randomWord",randomWord);
+//localStorage.setItem("selectedHint",currentHint);
+
+//Saving current welcome and category messages
+savedMessage=document.getElementById("welcomeMessage").innerHTML;
+savedCategoryDisplay=document.getElementById("categoryDisplay").innerHTML;
+//Storing all the values which should be remain after refresh
+storage=[currentHint,randomWord,guessedWord,chances,winningCount,load,savedMessage,savedCategoryDisplay,selectedCategory,category,usedIndexes,selectedHint,timeLeft,counter,correctButtons,wrongButtons,key,hintTrack,problem];
+//converting array into string format for local storage
+string=JSON.stringify(storage);
+//Saving array "storage" (game data) in browser local storage
+localStorage.setItem("storage",string);
+}
+
+
+
+
+
+
 
 //creating function for time based game
 function timeBased(){
