@@ -241,7 +241,11 @@ chances++;
 }
 //Restoring original chances value after redraw loop
 chances=chances-wrongCount;
-
+//calling display function when page is refreshed in 5 seconds delay
+if(problem){
+  document.getElementById("hintText").innerHTML= "";
+  wordsDisplay();
+}
 //recolouringKeypad();
 //calling functions to show keypad
 showKeypad();
@@ -612,15 +616,23 @@ if(!guessedWord.includes("-")){
 
       }
       else{
+        console.log("outside time delay" +storage);
+        localStorage.clear("storage");
+        //Making problem true so that wordsDisplay function is called from loadGame function after refresh
+        //This remove the bug of not loading the next word after refreshing within 5 seconds delay time
+        problem=true;
+        saveGame();
            //pause for 5 mins so player can see win message, then clear old hint and load next word
            //setTimeout schedules next word after delay but function continues execution immediately
            setTimeout(function(){
+            
+          
             //clear previous hint before showing the next word
             document.getElementById("hintText").innerHTML= "";
            
             //load the next random number
             wordsDisplay();
-            
+            console.log(storage);
              
            },5000);  //5000 milliseconds = 5 seconds
            }
