@@ -2,7 +2,7 @@
 <h1  style="text-align:center; color:blue;" > HANGMAN GAME</h1>
 
 <h1 id="welcomeMessage" ; style="text-align:center;"><br><br>Welcome to play <span style="color:blue;">HANGMAN</span>  word guessing game<br><br></h1>
-<button id="quit" style="display:none;cursor:pointer;">quit</button>
+
 <center>
 <button id="timeBased" style="color:blue;cursor:pointer;"><span style=" font-size:20px;">Time based game</span><br> Time linmit 2 minutes</button>
 <button id="withoutTime" style="color:blue;cursor:pointer;"><span style=" font-size:20px;">Without Time</span> <br>No time limit</button>
@@ -21,7 +21,7 @@
 <div id="chancesMessage" style="display:none;position:absolute; top:250px; left:80px; " ></div>
 <div id="words"  style="display:none; position:absolute; top:200px; left:80px;"></div>
 <div id="time"  style="display:block;position:absolute; top:100px; left:50px; "></div>
-
+<button id="quit" style="display:none;cursor:pointer;">Quit</button>
 
 <div style="text-align:center;">
 <button id="restartGame" style="display:none; cursor:pointer; margin-right:10px;">Restart</button>
@@ -605,6 +605,7 @@ if(!guessedWord.includes("-")){
       //Showing the result if player guessed all five words correctly
       if(winningCount==5){
         document.getElementById("finalMessage").innerHTML= "<br><br>" +"You have won the game";
+        document.getElementById("quit").disabled=true;
         //disableButtons();
         gameEnded=true;
         load=false;
