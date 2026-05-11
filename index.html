@@ -832,6 +832,66 @@ ctx.beginPath();
 }
 }
 
+//Function for restoring keypad button colours(green and red) and states(disabled) after refresh
+function recolouringKeypad(){
+//Getting all alphabet buttons from keypad.
+//Using querySelectorAll which do the following steps
+//Find element with id "alphabets"
+//Then select all <button>elements inside it
+//Store them in reusedButtons 
+reusedButtons=document.querySelectorAll("#alphabets button");
+for(var i=0;i<reusedButtons.length;i++){
+ //Checking if button belongs to correctly guessed letters 
+if(correctButtons.includes(reusedButtons[i].innerHTML.toLocaleLowerCase())){
+//Restoring current button style  
+reusedButtons[i].style.backgroundColor="green";
+reusedButtons[i].style.color= "white";
+reusedButtons[i].style.border= "none";
+//Disabling used correct button to keep game state same after refresh
+reusedButtons[i].disabled=true;
+//Changing cursor to keep button appearance same after refresh
+reusedButtons[i].style.cursor="not-allowed"
+}
+//Checking if button belongs to wrongly guessed letters 
+if(wrongButtons.includes(reusedButtons[i].innerHTML.toLowerCase())){
+  //Restoring wrong button style  
+  reusedButtons[i].style.backgroundColor="red";
+  reusedButtons[i].style.color= "white";
+  reusedButtons[i].style.border= "none";
+  //Disabling used wrong button to keep game state same after refresh
+  reusedButtons[i].disabled=true;
+  //Changing cursor to keep button appearance same after refresh
+  reusedButtons[i].style.cursor="not-allowed"
+}
+}
 
+}
 
+//Function for quitting the game
+function quitDisplay(){
+  //Asking user for quit confirmation
+  quit=confirm("Do you want to quit");
+  if(quit){
+  //Making load false so saved game data does not load again  
+  load=false;
+  //Showing thankyou message
+  output.innerText="Thankyou for playing the game";
+  //Hiding all the game elements from the screen
+  document.getElementById("finalMessage").style.display="none";
+  document.getElementById("welcomeMessage").style.display="none";
+  document.getElementById("categoryDisplay").style.display="none";
+  document.getElementById("hint").style.display="none";
+  document.getElementById("chancesMessage").style.display="none";
+  document.getElementById("words").style.display="none";
+  document.getElementById("time").style.display="none";
+  document.getElementById("finalMessage").style.display="none";
+  document.getElementById("alphabets").style.display="none";
+  document.getElementById("randomWord").style.display="none";
+  document.getElementById("quit").style.display="none";
+  //Clearing hangman drawing from canvas
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  //Removing saved game data from local storage so the game can be played again
+  localStorage.clear();
+  }
+}
 </script> 
