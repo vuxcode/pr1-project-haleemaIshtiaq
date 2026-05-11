@@ -50,31 +50,51 @@
 
 
 <script>
-  //Declaring variables at the top  
-var chances;
-var arr=[];
+//Declaring variables at the top  
+
 var randomWord=[];
-var hints=[];
 var usedIndexes=[];
 var usedKeys=[];
-var random, guessedWord, letters;
+var selectedCategory=[];
+var selectedHint=[];
+
+var cahnces,random, guessedWord, letters;
 var currentHint="";
 var alphaButtons,char,correct,found;
 var alphabets;
 var winningCount=0;
 var gameEnded= false;
 var words=0;
-var time,timeLeft,minutes,seconds;
+var time,minutes,seconds;
+var timeLeft=120;
 var restart,exit;
-var Key;
+var Key=" ";
 var counter=false;
 var selected,category;
-var selectedCategory=[];
-var selectedHint=[];
+var counter=false;
 
+//Variables used for refresh feature
+var correctButtons=[];
+var wrongButtons=[];
+var reusedButtons;
+var hintTrack=false;
+var storage=[];
+var string;
+var saved;
+var load=false;
+var savedMessage,savedCategoryDisplay,savednameCategory;
+var savedCategory=[];
+var problem=false;
+
+
+
+
+//Categories and their corresponding hint arrays
 var animals = ["tiger","rabbit","zebra","lion","monkey","kangaroo","dolphin","elephant","giraffe","frog"];
 var animalsHint=["A big striped wild cat","A small animal with long ears","An animal with black and white stripes","known as the king of jungle","An animal that climbs trees and likes bananas","An animal that jumps and has a pouch","A smart sea animal that swims and jumps out of water","The largest land animal with a trunk","Tall animal with a very long neck","An amphibian that lives on land and in water"]
 var countries=["pakistan","sweden","qatar","china","turkey","afghanistan","switzerland","england","egypt","palestine"];
+var countriesHint=["A country in south asia","Volvo","Hosting FIFA world cup 2022","Great wall","A country between Europe and Asia","Its capital is kabul","Its capital is Bern","Big Ben","Pyramids","Its capital is Jerusalem"];
+var food=["pizza","burger","pasta","cake","sandwich","donuts","rice","noodles","muffins","toast"];
 var food=["pizza","burger","pasta","cake","sandwich","donuts","rice","noodles","muffins","toast"];
 var foodHint=["Italian food","A popular fast food made with a bun and meat inside","A type of italian food made from noodles","A sweet dessert often eaten on birthdays","A food made with bread and fillings in between","A sweet fried dessert usually shaped like a ring","A common food grain eaten in many countries","Long thin strips of dough made from flour","A small soft cake typically baked in a cup-shaped pan","Bread that is browned by heat"]
 var nature=["mountains","rainbow","flowers","waterfall","volcano","lake","valley","desert","ocean","river"];
@@ -87,12 +107,16 @@ var canvas= document.getElementById("hangMan");
 //Get the 2D context of the canvas
 var ctx=canvas.getContext("2d");
 
-
+//Adding event listeners for game mode buttons(time based and without time)
 var time=document.getElementById("timeBased");
 time.addEventListener("click",timeBased);
 var timeless=document.getElementById("withoutTime");
 timeless.addEventListener("click",withoutTime);
+
+//Getting category selection section from HTML
 var selectionOfCategories=document.getElementById("selectionOfCategories");
+
+
 
 //creating function for time based game
 function timeBased(){
@@ -108,8 +132,6 @@ function timeBased(){
 }
 
    function startGame() {
-    
-
     selected=document.querySelector(`input[name="category"]:checked`);
     //Show the message to user if category not selected
     if(!selected){
@@ -118,11 +140,12 @@ function timeBased(){
      }
     //Hiding all the categories buttons
     selectionOfCategories.style.display="none";
-
-     category=selected.value;
+     ategory=selected.value;
      console.log(category);
      selectCategory(category);
     }
+
+
 function selectCategory(){
 
  if(category=="animals"){
@@ -151,12 +174,12 @@ function selectCategory(){
         }
         else if(category=="countries"){
             selectedCategory= countries;
+            //assign technology hint to selected hint array
+            selectedHint=countriesHint;
           
         }
         
-
-
-    //show game UI
+     //show game UI
     //Making the hint button visible
     document.getElementById("hint").style.display="block";
     //Making chances visible which is 6
@@ -178,6 +201,7 @@ function selectCategory(){
     //when hint button is clicked run the function showHint to show the hint to the user
     document.getElementById("hintButton").addEventListener("click",showHint);
 }
+
 
 //creating function for game without time limit
 function withoutTime(){
