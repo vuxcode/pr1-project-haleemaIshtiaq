@@ -134,7 +134,117 @@ string=JSON.stringify(storage);
 localStorage.setItem("storage",string);
 }
 
+//Function for loading saved game data after page refresh
+function loadGame(){
+  //randomWord=localStorage.getItem("randomWord"); 
+ // currentHint=localStorage.getItem("selectedHint");
 
+ //Retrieving saved array named "storage" (game data) from local storage
+  saved=localStorage.getItem("storage");
+
+  //Stop function if array"storage" is empty.(no saved game data exists)
+  if(saved==null){
+    return;
+  }
+  //Converting saved string data back into array format
+  storage=JSON.parse(saved);
+
+  //A variable load=false is initialized at top and saved at storage array position 5.
+  //Stop loading (game data )if game is ended or user quit the game
+  if(storage[5]==false){
+    return;
+  }
+
+  //Restoring saved game values(Getting values back)
+ 
+  currentHint=storage[0];
+  randomWord=storage[1];
+  guessedWord=storage[2];//making it array
+  chances=storage[3];
+  winningCount=storage[4];
+  load=storage[5];
+  savedMessage=storage[6];
+  savedCategoryDisplay=storage[7];
+  selectedCategory=storage[8];
+  category=storage[9];
+  usedIndexes=storage[10];
+  selectedHint=storage[11];
+  timeLeft=storage[12];
+  counter=storage[13];
+  correctButtons=storage[14];
+  wrongButtons=storage[15];
+  key=storage[16];
+  hintTrack=storage[17];
+  problem=storage[18];
+  
+  
+  //
+  time.style.display="none";
+  timeless.style.display="none";
+  //Showing text for chances left and words guessed after loading
+  document.getElementById("chancesMessage").style.display="block";
+  document.getElementById("words").style.display="block";
+  //Showing quit button after loading saved game
+  document.getElementById("quit").style.display="block";
+  document.getElementById("quit").addEventListener("click",quitDisplay);
+  //Restoring saved welcome and category messages
+  document.getElementById("welcomeMessage").innerHTML=savedMessage;
+  document.getElementById("categoryDisplay").style.display="block";
+  document.getElementById("categoryDisplay").innerHTML=savedCategoryDisplay;
+
+  
+
+  //Restoring saved hint button state
+  //if hint was not opened before refresh, show hint button
+    if(!hintTrack){
+    document.getElementById("hint").style.display="block";
+    document.getElementById("hintButton").addEventListener("click",showHint);
+    }
+    //If hint was already opened before refresh, display saved hint text
+    else
+    {
+    document.getElementById("hint").style.display="block";
+    document.getElementById("hintText").innerHTML= currentHint;
+    document.getElementById("hintButton").style.display= "none";
+    }
+ //Displaying guessed correct letters and hidden letters with dashes on screen after refresh
+  document.getElementById("randomWord").innerHTML = guessedWord.join("");
+//Restoring and displaying saved remaining chances after refresh
+  document.getElementById("chancesMessage").innerHTML="chances left: "+chances+"/6";
+  // Restoring and displaying correct words guessed after refresh
+  document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
+
+//Restoring counter by calling count down function.Value of current time left is already restored in variable timeLeft
+if(counter){
+  console.log("time left" +timeLeft);
+  startCountDown();
+}
+//Create en element to connect to canvas
+canvas= document.getElementById("hangMan");
+//Get the 2D context of the canvas
+ctx=canvas.getContext("2d");
+
+//Redrawing hangman based on saved chances after refresh
+//Exampel:
+//If one wrong chance was used before refresh,the stand and face should appear again after loading
+// Calculating number of wrong guesses made by player
+var wrongCount=6-chances;
+//Loop to redraw saved hangman body parts
+for(var i=0;i<=wrongCount;i++){
+drawHangman();
+//Temporarily increasing chances value during redraw
+if(chances!=6){
+chances++;
+}
+}
+//Restoring original chances value after redraw loop
+chances=chances-wrongCount;
+
+//recolouringKeypad();
+//calling functions to show keypad
+showKeypad();
+recolouringKeypad();
+}
 
 
 
