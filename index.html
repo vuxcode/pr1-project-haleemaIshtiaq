@@ -690,13 +690,18 @@ function startCountDown(){
     clearInterval(time);
 
     //Reset the time value to 120 seconds( 2 minutes)
-    timeLeft = 120;
+    //timeLeft = 120;
 
     //start a new countdown that runs every second
     time= setInterval(function(){
       // stopping the time immediately if game has ended or chances left is zero
       if(gameEnded || chances<=0){
+        //Clear time if game ended
         clearInterval(time);
+        //set load to false so that the load function does not run
+        load=false;
+        //Saving updated values in local storage
+        saveGame();
         return;
       }
 
@@ -716,23 +721,28 @@ function startCountDown(){
         document.getElementById("time").innerHTML= minutes + ":" + seconds;
         //decreasing time by 1
         timeLeft--;
+        //Saving updated game data to local storage
+        saveGame();
       }
       else{
-        //stop the time
-        clearInterval(time);
-        //showing message on screen
-        document.getElementById("finalMessage").innerHTML = "Time Over! <br> You have guessed " + winningCount +" words correct outof five words in two minutes";
-       //disblae buttons because game is over
-        disableButtons();
+        //Clear the local storage bacause game is ended
+        localStorage.clear("storage");
+        //Set load to false bacause game is ended(load function does not run)
+        load=false;
         //Marking as game is ended
         gameEnded=true;
+        //stop the time
+        clearInterval(time);
+        //Saving updated values in local storage
+        saveGame();
+        //showing message on screen
+        document.getElementById("finalMessage").innerHTML = "Time Over! <br> You have guessed " + winningCount +" words correct outof five words in two minutes";
+       //calling disabla buttons function because game is over
+        disableButtons();
+        //Calling showEndButtons to show restart and exit buttons
         showEndButtons();
       }
-
-
-
-
-    },1000); //runs every one second 1000millisecond is 1 second
+},1000); //runs every one second 1000millisecond is 1 second
 
 
 }
@@ -750,14 +760,15 @@ function showEndButtons(){
   exit.addEventListener("click",exitGame);
   //Making all other elements on the page invisible except final message
   document.getElementById("categoryDisplay").style.display="none";
-    document.getElementById("hint").style.display="none";
-    document.getElementById("chancesMessage").style.display="none";
-    document.getElementById("words").style.display="none";
-    document.getElementById("time").style.display="none";
+  document.getElementById("hint").style.display="none";
+  document.getElementById("chancesMessage").style.display="none";
+  document.getElementById("words").style.display="none";
+  document.getElementById("time").style.display="none";
     //document.getElementById("finalMessage").style.display="none";
-    document.getElementById("alphabets").style.display="none";
-     document.getElementById("randomWord").style.display="none";
-     ctx.clearRect(0,0,canvas.width,canvas.height);
+  document.getElementById("alphabets").style.display="none";
+  document.getElementById("randomWord").style.display="none";
+  document.getElementById("quit").style.display="none";
+  ctx.clearRect(0,0,canvas.width,canvas.height);
 
 
 }
