@@ -2,18 +2,20 @@
 <h1  style="text-align:center; color:blue;" > HANGMAN GAME</h1>
 
 <h1 id="welcomeMessage" ; style="text-align:center;"><br><br>Welcome to play <span style="color:blue;">HANGMAN</span>  word guessing game<br><br></h1>
+<button id="quit" style="display:none;cursor:pointer;">quit</button>
 <center>
 <button id="timeBased" style="color:blue;cursor:pointer;"><span style=" font-size:20px;">Time based game</span><br> Time linmit 2 minutes</button>
 <button id="withoutTime" style="color:blue;cursor:pointer;"><span style=" font-size:20px;">Without Time</span> <br>No time limit</button>
 </center>
 <h3 id="categoryDisplay" style="text-align:center;margin-top:-50px;"></h3>
+<div id="finalMessage" style="text-align:center;color:blue;" ></div>
 <div id="randomWord" style="text-align:center;font-size:30px;letter-spacing:10px; font-weight:bold;"></div>
 <div id="hint" style="display:none;text-align:center;">
  <button id="hintButton" style="padding:10px;color:yellow;cursor:pointer;display:block;margin:auto;">Hint</button>
  <div id="hintText"></div>
 </div>
  <div id="alphabets" style="text-align:center;" ></div>
-<div id="finalMessage" style="text-align:center;" ></div>
+
 
 
 <div id="chancesMessage" style="display:none;position:absolute; top:250px; left:80px; " ></div>
@@ -58,7 +60,7 @@ var usedKeys=[];
 var selectedCategory=[];
 var selectedHint=[];
 
-var cahnces,random, guessedWord, letters,btn;
+var chances,random, guessedWord, letters,btn;
 var currentHint="";
 var alphaButtons,char,correct,found;
 var alphabets;
@@ -68,7 +70,7 @@ var words=0;
 var time,minutes,seconds;
 var timeLeft=120;
 var restart,exit;
-var Key=" ";
+var key=" ";
 var counter=false;
 var selected,category;
 var counter=false;
@@ -301,6 +303,7 @@ function startGame() {
     }
   //Assigning load true because game has started
   load=true; 
+  saveGame();
   //Hiding all the categories buttons
   selectionOfCategories.style.display="none";
   //Getting selected category value
@@ -656,10 +659,17 @@ function disableButtons(){
     }
 }
 
-//Defining the hint function.It displays the current hint associated with the random word
+//Defining the hint function.Function to display hint for the current word
 function showHint(){
+    //Set hintTrack to true for keeping the track that the hint has already been displayed before refresh
+    hintTrack=true;  
+    //Display the current hint text on the screen
     document.getElementById("hintText").innerHTML= currentHint;
-     document.getElementById("hintButton").style.display= "none";
+    //Hide the hint button after the hint is shown
+    document.getElementById("hintButton").style.display= "none";
+    //Saving the game data in local storage by calling saveGame function
+    //Here value of hintTrack is saved in local storage
+    saveGame();
     
 }
 //Defining the enableButtons function.This function is called to make all the keys enabled after guessing the word right
