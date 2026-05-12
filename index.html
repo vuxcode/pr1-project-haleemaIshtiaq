@@ -4,8 +4,8 @@
 <h1 id="welcomeMessage" ; style="text-align:center;"><br><br>Welcome to play <span style="color:blue;">HANGMAN</span>  word guessing game<br><br></h1>
 
 <center>
-<button id="timeBased" style="color:blue;cursor:pointer;"><span style=" font-size:20px;">Time based game</span><br> Time linmit 2 minutes</button>
-<button id="withoutTime" style="color:blue;cursor:pointer;"><span style=" font-size:20px;">Without Time</span> <br>No time limit</button>
+<button id="timeBased" style="color:#0D0C0C;background-color:#FDFCFC;cursor: pointer;"><span style=" font-size:20px;">Time based game</span><br> Time limit 2 minutes</button>
+<button id="withoutTime" style="color:#0D0C0C;background-color:#FDFCFC;cursor:pointer;"><span style=" font-size:20px;">Without Time</span> <br>No time limit</button>
 </center>
 <h3 id="categoryDisplay" style="text-align:center;margin-top:-50px;"></h3>
 <div id="finalMessage" style="text-align:center;color:blue;" ></div>
@@ -87,6 +87,8 @@ var load=false;
 var savedMessage,savedCategoryDisplay,savednameCategory;
 var savedCategory=[];
 var problem=false;
+var lastPageProblem=false;
+var savedFinalMessage;
 
 
 
@@ -95,7 +97,7 @@ var problem=false;
 var animals = ["tiger","rabbit","zebra","lion","monkey","kangaroo","dolphin","elephant","giraffe","frog"];
 var animalsHint=["A big striped wild cat","A small animal with long ears","An animal with black and white stripes","known as the king of jungle","An animal that climbs trees and likes bananas","An animal that jumps and has a pouch","A smart sea animal that swims and jumps out of water","The largest land animal with a trunk","Tall animal with a very long neck","An amphibian that lives on land and in water"]
 var countries=["pakistan","sweden","qatar","china","turkey","afghanistan","switzerland","england","egypt","palestine"];
-var countriesHint=["A country in south asia","Volvo","Hosting FIFA world cup 2022","Great wall","A country between Europe and Asia","Its capital is kabul","Its capital is Bern","Big Ben","Pyramids","Its capital is Jerusalem"];
+var countriesHint=["A country in south asia","Volvo","Hosted FIFA world cup 2022","Great wall","A country between Europe and Asia","Its capital is kabul","Its capital is Bern","Big Ben","Pyramids","Its capital is Jerusalem"];
 var food=["pizza","burger","pasta","cake","sandwich","donuts","rice","noodles","muffins","toast"];
 var food=["pizza","burger","pasta","cake","sandwich","donuts","rice","noodles","muffins","toast"];
 var foodHint=["Italian food","A popular fast food made with a bun and meat inside","A type of italian food made from noodles","A sweet dessert often eaten on birthdays","A food made with bread and fillings in between","A sweet fried dessert usually shaped like a ring","A common food grain eaten in many countries","Long thin strips of dough made from flour","A small soft cake typically baked in a cup-shaped pan","Bread that is browned by heat"]
@@ -128,8 +130,9 @@ function saveGame(){
 //Saving current welcome and category messages
 savedMessage=document.getElementById("welcomeMessage").innerHTML;
 savedCategoryDisplay=document.getElementById("categoryDisplay").innerHTML;
+savedFinalMessage=document.getElementById("finalMessage").innerHTML;
 //Storing all the values which should be remain after refresh
-storage=[currentHint,randomWord,guessedWord,chances,winningCount,load,savedMessage,savedCategoryDisplay,selectedCategory,category,usedIndexes,selectedHint,timeLeft,counter,correctButtons,wrongButtons,key,hintTrack,problem];
+storage=[currentHint,randomWord,guessedWord,chances,winningCount,load,savedMessage,savedCategoryDisplay,selectedCategory,category,usedIndexes,selectedHint,timeLeft,counter,correctButtons,wrongButtons,key,hintTrack,problem,lastPageProblem,savedFinalMessage];
 //converting array into string format for local storage
 string=JSON.stringify(storage);
 //Saving array "storage" (game data) in browser local storage
@@ -178,6 +181,8 @@ function loadGame(){
   key=storage[16];
   hintTrack=storage[17];
   problem=storage[18];
+  lastPageProblem=storage[19];
+  savedFinalMessage=storage[20];
   
   
   //
@@ -245,6 +250,11 @@ chances=chances-wrongCount;
 if(problem){
   document.getElementById("hintText").innerHTML= "";
   wordsDisplay();
+}
+if(lastPageProblem){
+  console.log("in load function");
+  document.getElementById("finalMessage").innerHTML= savedFinalMessage;
+  showEndButtons();
 }
 //recolouringKeypad();
 //calling functions to show keypad
@@ -607,15 +617,19 @@ if(!guessedWord.includes("-")){
         document.getElementById("finalMessage").innerHTML= "<br><br>" +"You have won the game";
         document.getElementById("quit").disabled=true;
         //disableButtons();
+        disableButtons();
+       document.getElementById("hintButton").disabled=true;
         gameEnded=true;
-        load=false;
         //Stop the times because game is ended
+        //clearInterval(time);
         clearInterval(time);
+        //load=false;
+        lastPageProblem=true;
+        counter=false;
+        saveGame();
         localStorage.clear();
         setTimeout(showEndButtons,5000);
-        
-
-      }
+        }
       else{
         console.log("outside time delay" +storage);
         localStorage.clear("storage");
@@ -648,14 +662,22 @@ if(!guessedWord.includes("-")){
 //showing the final result if the player lose the game
 else if(chances<=0) {
     console.log("you lose word was;" ,randomWord);
-     document.getElementById("finalMessage").innerHTML = "<br><br>" +"You lose the game...The word is " +randomWord;
-     //Disable the buttons because the game is over
+    document.getElementById("finalMessage").innerHTML = "<br><br>" +"You lose the game...The word is " +randomWord;
+    document.getElementById("quit").disabled=true;
+    saveGame();
+    //Disable the buttons because the game is over
    disableButtons();
    document.getElementById("hintButton").disabled=true;
    gameEnded=true;
-   load=false;
+   saveGame();
+   
    //stop the timer because game is ended
-   clearInterval(time);
+    clearInterval(time);
+   //load=false;
+   
+   lastPageProblem=true;
+   saveGame();
+   
    localStorage.clear();
    setTimeout(showEndButtons,5000);
 }
@@ -760,6 +782,9 @@ function startCountDown(){
 
 }
 function showEndButtons(){
+  //Set load false so here refresh page is not working
+  //load=false;
+  //saveGame();
   restart=document.getElementById("restartGame");
   //Making the restart button visible.Using inline block to make both buttons restart and exit come on one line
   restart.style.display="inLine-block";
@@ -957,6 +982,7 @@ function quitDisplay(){
   if(quit){
   //Making load false so saved game data does not load again  
   load=false;
+  saveGame();
   //Showing thankyou message
   output.innerText="Thankyou for playing the game";
   //Hiding all the game elements from the screen
@@ -973,6 +999,7 @@ function quitDisplay(){
   document.getElementById("quit").style.display="none";
   //Clearing hangman drawing from canvas
   ctx.clearRect(0,0,canvas.width,canvas.height);
+  clearInterval(time);
   //Removing saved game data from local storage so the game can be played again
   localStorage.clear();
   }
