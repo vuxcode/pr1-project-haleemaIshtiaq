@@ -26,6 +26,12 @@ Calculated Desmos y-coordinate using:
 
 where 300 pixels is the Canvas height set in the program.
 
+#### Hangman Graph
+
+The following graph was created in Desmos to visualize the Hangman coordinates used in Canvas .
+
+![Hangman Coodinate Graph](image-graph.svg)
+
 Today attended the workshop and liked the teacher's suggestion of using keyboard input along with the on screen buttons. Got help from the teacher to implement keyboard input. It was easier. Completed this in the same workshop but still thinking about synchronizing the game keypad with the keyboard input.
 
 Succeeded in synchronizing keyboard input with game keypad buttons after learning about custom HTML attributes using `setAttribute()` and `querySelector()`.
