@@ -97,7 +97,9 @@ Although the project exceeded the planned time budget, the extra development tim
 
     Choose a game mode by clicking one of the above buttons.   
 
+
     ![Game Start Screen](screenshots/image-screen1.png)
+
 
 3. Click one of the five category buttons.
 
@@ -107,11 +109,15 @@ Although the project exceeded the planned time budget, the extra development tim
       - Food
       - Nature
 
-      ![Game Start Screen](screenshots/image-screen2.png)
+
+      ![Category Screen](screenshots/image-screen2.png)
+
 
 4. After selecting the category, click the `Start Game` button below the categories.An alert message is displayed if `Start Game` button is pressed without selecting a category.
 
-![Game Start Screen](screenshots/image-alert1.png)
+
+![Screen With Aert Message](screenshots/image-alert1.png)
+
 
 5. After clicking the `Start Game` button , the game starts and the user can see the following:
     
@@ -135,6 +141,10 @@ Although the project exceeded the planned time budget, the extra development tim
       - `Hint` button for displaying hint.
       - Keypad ( Alphabet buttons from A to Z )
 
+
+![Main Screen](screenshots/image-screen3.png)
+
+
 6. Start guessing the hidden word by:
 
       - Clicking the alphabet buttons on the screen or
@@ -148,13 +158,26 @@ Although the project exceeded the planned time budget, the extra development tim
 
 9. Click the `Hint` button if you need help related to the hidden word.
 
+
+![Game Progress Screen](screenshots/image-screen4.png)
+
+
 10. On guessing the hidden word correctly , the next word is automatically displayed and the "words guessed " counter on the screen is updated.
+
+![Game Progress Screen](screenshots/image-screen5.png)
+
 
 11. The winning criteria is to guess five words correctly consecutively.
 
 12. The game ends if all six chances are lost before guessing the hidden word and the next word is not displayed.
 
+![Game Progress Screen](screenshots/image-screen6.png)
+
+
 13. In Time Based mode, the game also ends if the two minute countdown timer reaches zero.This means the user must guess all five words correctly consecutively witin two minutes.
+
+![Game Progress Screen](screenshots/image-screen7.png)
+
 
 13. Winning or losing messages are displayed on the screen.
 
