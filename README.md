@@ -109,7 +109,9 @@ Although the project exceeded the planned time budget, the extra development tim
 
       ![Game Start Screen](screenshots/image-screen2.png)
 
-4. After selecting the category, click the `Start Game` button below the categories.
+4. After selecting the category, click the `Start Game` button below the categories.An alert message is displayed if `Start Game` button is pressed without selecting a category.
+
+![Game Start Screen](screenshots/image-alert1.png)
 
 5. After clicking the `Start Game` button , the game starts and the user can see the following:
     
