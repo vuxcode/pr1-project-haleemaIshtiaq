@@ -164,19 +164,24 @@ Although the project exceeded the planned time budget, the extra development tim
 
 10. On guessing the hidden word correctly , the next word is automatically displayed and the "words guessed " counter on the screen is updated.
 
-![Game Progress Screen](screenshots/image-screen5.png)
+![Game Progress Screen](screenshots/image-screen5a.png)
+
+![Game Progress Screen](screenshots/image-screen5b.png)
 
 
 11. The winning criteria is to guess five words correctly consecutively.
 
+![Game Progress Screen](screenshots/image-screen6.png)
+
+
 12. The game ends if all six chances are lost before guessing the hidden word and the next word is not displayed.
 
-![Game Progress Screen](screenshots/image-screen6.png)
+![Game Progress Screen](screenshots/image-screen7.png)
 
 
 13. In Time Based mode, the game also ends if the two minute countdown timer reaches zero.This means the user must guess all five words correctly consecutively witin two minutes.
 
-![Game Progress Screen](screenshots/image-screen7.png)
+![Game Progress Screen](screenshots/image-screen8.png)
 
 
 13. Winning or losing messages are displayed on the screen.
@@ -184,6 +189,12 @@ Although the project exceeded the planned time budget, the extra development tim
 14. `Restart` and `Exit` buttons are dispayed after the game ends.
 
 15. Use the `Quit` button to leave the game at any time.
+
+![Game Progress Screen](screenshots/image-alert2.png)
+
+A thankyou message is displayed on clicking the `Quit` button.
+
+![Game Progress Screen](screenshots/image-screen9.png)
 
 16. The refresh feature restores the game progress after a page refresh using local storage.
        
