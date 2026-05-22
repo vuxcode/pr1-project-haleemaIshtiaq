@@ -113,6 +113,8 @@ Although the project exceeded the planned time budget, the extra development tim
 
 ![Game Start Screen](screenshots/image-alert1.png)
 
+![Game Start Screen](screenshots/image-alert2.png)
+
 5. After clicking the `Start Game` button , the game starts and the user can see the following:
     
     * Left side
