@@ -1,8 +1,8 @@
 # Time Report
 
-> Write about what you have done and how long you have worked on each part of the project.
+<!-- Write about what you have done and how long you have worked on each part of the project.
 
-For example: 
+For example: -->
 
 ## 2022-03-24 18:00 Worked for 1 hour.
 
@@ -76,7 +76,7 @@ For example:
       - Display the final message if user guess 5 consecutive words correctly.
       - Used `setTimeout()` to delay 5 seconds in loading the next word so user can see the feedback.
       - Stops the game and disable the buttons when game ends.
- - *Implemented word tracking logic and created a div to display correctly guessed words on screen.*   
+ - *Implemented word tracking logic and created a div to display number of correctly guessed words on screen.*   
  - *Added `enableButtons` function to enable keypad buttons for next loaded word.*     
 
 ## 2022-04-17 02:00 Worked for 3 hours.     

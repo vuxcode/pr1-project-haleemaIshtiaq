@@ -8,7 +8,7 @@ The final program is not the goal! The aim of the project is to show how you hav
 
 # Project Notes
 
-> You can use this section of the file to keep notes about your project as you work on it.
+<!-- You can use this section of the file to keep notes about your project as you work on it.-->
 
 Worked on the basic game layout using HTML. Created two game mode buttons: "Time Based Game" and "Without Time".
 
@@ -46,7 +46,7 @@ Introduced a refresh feature using `localStorage()` to restore game data after p
 
 # Project Summary
 
-> Before the final submission date you should include a "PROJECT SUMMARY" in this section here. 
+<!--Before the final submission date you should include a "PROJECT SUMMARY" in this section here.--> 
 
 ` "Hangman Word Guessing Game" ` is an interactive game developed using HTML, JavaScript and Canvas. The project was created to improve    understanding of JavaScript concepts, event handling and Canvas drawing.
 
@@ -86,7 +86,7 @@ Although the project exceeded the planned time budget, the extra development tim
 
 # User Guide
 
-> Write a clear user guide for how someone should use your program.
+<!-- Write a clear user guide for how someone should use your program.-->
 
 1. Open a game in a web browser.
 
@@ -95,7 +95,9 @@ Although the project exceeded the planned time budget, the extra development tim
       - Time based game (Time limit 2 minutes)
       - Without Time (No time limit)
 
-    Choose a game mode by clicking one of the above buttons.    
+    Choose a game mode by clicking one of the above buttons.   
+
+    ![Game Start Screen](screenshots/image-screen1.png)
 
 3. Click one of the five category buttons.
 
@@ -104,6 +106,8 @@ Although the project exceeded the planned time budget, the extra development tim
       - Technology
       - Food
       - Nature
+
+      ![Game Start Screen](screenshots/image-screen2.png)
 
 4. After selecting the category, click the `Start Game` button below the categories.
 

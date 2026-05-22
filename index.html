@@ -99,7 +99,6 @@ var animalsHint=["A big striped wild cat","A small animal with long ears","An an
 var countries=["pakistan","sweden","qatar","china","turkey","afghanistan","switzerland","england","egypt","palestine"];
 var countriesHint=["A country in south asia","Volvo","Hosted FIFA world cup 2022","Great wall","A country between Europe and Asia","Its capital is kabul","Its capital is Bern","Big Ben","Pyramids","Its capital is Jerusalem"];
 var food=["pizza","burger","pasta","cake","sandwich","donuts","rice","noodles","muffins","toast"];
-var food=["pizza","burger","pasta","cake","sandwich","donuts","rice","noodles","muffins","toast"];
 var foodHint=["Italian food","A popular fast food made with a bun and meat inside","A type of italian food made from noodles","A sweet dessert often eaten on birthdays","A food made with bread and fillings in between","A sweet fried dessert usually shaped like a ring","A common food grain eaten in many countries","Long thin strips of dough made from flour","A small soft cake typically baked in a cup-shaped pan","Bread that is browned by heat"]
 var nature=["mountains","rainbow","flowers","waterfall","volcano","lake","valley","desert","ocean","river"];
 var natureHint=["Raised part of the earth","Seven colours in the sky","That bloom in spring","A natural attraction with flowing water from above","A mountain that can erupt with lava and fire","A natural water body surrounded by land","A low area of land between mountains or hills","A very dry place with sand","The five large bodies of water on earth","A natural flow of water that moves in one direction"]
@@ -662,6 +661,7 @@ if(!guessedWord.includes("-")){
 //showing the final result if the player lose the game
 else if(chances<=0) {
     console.log("you lose word was;" ,randomWord);
+    
     document.getElementById("finalMessage").innerHTML = "<br><br>" +"You lose the game...The word is " +randomWord;
     document.getElementById("quit").disabled=true;
     saveGame();
@@ -772,7 +772,7 @@ function startCountDown(){
         //Saving updated values in local storage
         saveGame();
         //showing message on screen
-        document.getElementById("finalMessage").innerHTML = "Time Over! <br> You have guessed " + winningCount +" words correct outof five words in two minutes";
+        document.getElementById("finalMessage").innerHTML = "Time Over!<br> You lose the game. <br> You have guessed " + winningCount +" words correct out of five words in two minutes";
        //calling disabla buttons function because game is over
         disableButtons();
         //Calling showEndButtons to show restart and exit buttons
