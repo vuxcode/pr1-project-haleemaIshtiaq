@@ -131,6 +131,10 @@ For example: -->
       - Updated other functions to support the refresh feature.
       - Fixed the bugs related to page refresh.
                               
+## 2022-05-24 Worked for approx 1 hour. 
+ - *Fixed bugs and added comments.*
+ - *Increased the size of category arrays and hints from 10 to 20*.
+ - *Tested the game for final submission.*
 
 
 

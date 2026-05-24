@@ -1,6 +1,6 @@
 # Bug List
 
-> Make a list of the things that don't work as expected. Keep a list of things that you have fixed and try to document how you solved them.
+<!-- Make a list of the things that don't work as expected. Keep a list of things that you have fixed and try to document how you solved them.-->
 
 ## 1. Problem: *Letters not updating on screen* 
 **Problem:**
@@ -59,4 +59,10 @@ The game was stuck when the page was refreshed within the 5 seconds delay time(T
 **Solution:**
 Declared and assigned the variable `problem` as true so that the `wordsDisplay` function is called from the `loadGame function` after refresh.This solved the issue.
 
+## 9. Problem: *Accepting keyboard input within 5 seconds delay time for loading next word* 
+**Problem:**
+The game accepted keyboard input when it was not required during the 5 seconds delay time(Time for loading next random word).
+
+**Solution:**
+Declared and assigned the variable `gettingKey` as false while loading the next word. Returned from the function `getKey` when `gettingKey` is false. This solved the issue.
  
