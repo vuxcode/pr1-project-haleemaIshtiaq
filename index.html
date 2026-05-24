@@ -1,40 +1,66 @@
 <meta name="color-scheme" content="dark">
-<h1  style="text-align:center; color:blue;" > HANGMAN GAME</h1>
 
+<!--displays main heading of the Hangman game-->
+<h1  style="text-align:center; color:blue;" > HANGMAN GAME</h1>
+<!--Displays welcome message-->
 <h1 id="welcomeMessage" ; style="text-align:center;"><br><br>Welcome to play <span style="color:blue;">HANGMAN</span>  word guessing game<br><br></h1>
 
+<!--Creating buttons for game mode-->
 <center>
 <button id="timeBased" style="color:#0D0C0C;background-color:#FDFCFC;cursor: pointer;"><span style=" font-size:20px;">Time based game</span><br> Time limit 2 minutes</button>
 <button id="withoutTime" style="color:#0D0C0C;background-color:#FDFCFC;cursor:pointer;"><span style=" font-size:20px;">Without Time</span> <br>No time limit</button>
 </center>
+
+<!--Area to display the selected category name-->
 <h3 id="categoryDisplay" style="text-align:center;margin-top:-50px;"></h3>
+<!--Displays final win or lose messages-->
 <div id="finalMessage" style="text-align:center;color:blue;" ></div>
+<!--Displays the hidden random word-->
 <div id="randomWord" style="text-align:center;font-size:30px;letter-spacing:10px; font-weight:bold;"></div>
+
+<!--div for hint button and hint text-->
 <div id="hint" style="display:none;text-align:center;">
- <button id="hintButton" style="padding:10px;color:yellow;cursor:pointer;display:block;margin:auto;">Hint</button>
- <div id="hintText"></div>
+ <!--Creating button for hint--> 
+<button id="hintButton" style="padding:10px;color:yellow;cursor:pointer;display:block;margin:auto;">Hint</button>
+<!--Area to display hint text-->
+<div id="hintText"></div>
 </div>
- <div id="alphabets" style="text-align:center;" ></div>
 
+<!--div for dynamically generated alphabet buttons-->
+<div id="alphabets" style="text-align:center;" ></div>
 
-
+ <!--Displays remaining chances-->
 <div id="chancesMessage" style="display:none;position:absolute; top:250px; left:80px; " ></div>
+<!--Displays guessed words counter-->
 <div id="words"  style="display:none; position:absolute; top:200px; left:80px;"></div>
+<!--Displays countdown timer-->
 <div id="time"  style="display:block;position:absolute; top:100px; left:50px; "></div>
+
+<!--Button to quit the game-->
 <button id="quit" style="display:none;cursor:pointer;">Quit</button>
 
+<!--div for restart and exit buttons-->
 <div style="text-align:center;">
+<!--Button to restart the game-->
 <button id="restartGame" style="display:none; cursor:pointer; margin-right:10px;">Restart</button>
+<!--Button to exit the game-->
 <button id="exit" style="display:none;cursor:pointer;">Exit</button>
 </div>
+
+<!--Area to display end message-->
 <hi id="output"></hi>
+
 <!--Create a canvas element-->
 <canvas id="hangMan"  height="300" style="position: absolute; top: 80px; right:20px;"></canvas>
 
+<!--div for Category selection-->
 <div id ="selectionOfCategories" style="display:none;text-align:center;">
+<!--Heading for category selection-->
 <h1>Select the category</h1>
+
+<!--Creating five radio buttons-->
 <label><input type="radio" name="category" value="countries">Countries</label>
-    <br><br>
+<br><br>
 <label><input type="radio" name="category" value="animals">Animals </label>
 <br><br>
 <label><input type="radio" name="category" value="technology">Technology </label>
@@ -44,12 +70,10 @@
 <label><input type="radio" name="category" value="nature">Nature</label>
 <br><br>
 
+<!--Creating button to start the game after selecting a catogory-->
 <button onClick="startGame()">Start Game</button>
 
 </div>
-
-
-
 
 <script>
 //Declaring variables at the top  
