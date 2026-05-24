@@ -53,57 +53,44 @@
 
 <script>
 //Declaring variables at the top  
-
 var randomWord=[];
 var usedIndexes=[];
 var usedKeys=[];
 var selectedCategory=[];
 var selectedHint=[];
-
-var chances,random, guessedWord, letters,btn;
+var chances,random, guessedWord, letters,btn,alphaButtons,char,correct,found,alphabets,time,minutes,seconds,restart,exit,selected,category;
 var currentHint="";
-var alphaButtons,char,correct,found;
-var alphabets;
-var winningCount=0;
-var gameEnded= false;
-var words=0;
-var time,minutes,seconds;
-var timeLeft=120;
-var restart,exit;
 var key=" ";
+var winningCount=0;
+var words=0;
+var gameEnded= false;
 var counter=false;
-var selected,category;
 var counter=false;
+var timeLeft=120;
 
 //Variables used for refresh feature
 var correctButtons=[];
 var wrongButtons=[];
-var reusedButtons;
-var hintTrack=false;
 var storage=[];
-var string;
-var saved;
-var load=false;
-var savedMessage,savedCategoryDisplay,savednameCategory;
 var savedCategory=[];
+var hintTrack=false;
 var problem=false;
 var lastPageProblem=false;
-var savedFinalMessage;
-
-
+var load=false;
+var savedMessage,savedCategoryDisplay,savednameCategory,savedFinalMessage,string,saved,reusedButtons;
 
 
 //Categories and their corresponding hint arrays
-var animals = ["tiger","rabbit","zebra","lion","monkey","kangaroo","dolphin","elephant","giraffe","frog"];
-var animalsHint=["A big striped wild cat","A small animal with long ears","An animal with black and white stripes","known as the king of jungle","An animal that climbs trees and likes bananas","An animal that jumps and has a pouch","A smart sea animal that swims and jumps out of water","The largest land animal with a trunk","Tall animal with a very long neck","An amphibian that lives on land and in water"]
-var countries=["pakistan","sweden","qatar","china","turkey","afghanistan","switzerland","england","egypt","palestine"];
-var countriesHint=["A country in south asia","Volvo","Hosted FIFA world cup 2022","Great wall","A country between Europe and Asia","Its capital is kabul","Its capital is Bern","Big Ben","Pyramids","Its capital is Jerusalem"];
-var food=["pizza","burger","pasta","cake","sandwich","donuts","rice","noodles","muffins","toast"];
-var foodHint=["Italian food","A popular fast food made with a bun and meat inside","A type of italian food made from noodles","A sweet dessert often eaten on birthdays","A food made with bread and fillings in between","A sweet fried dessert usually shaped like a ring","A common food grain eaten in many countries","Long thin strips of dough made from flour","A small soft cake typically baked in a cup-shaped pan","Bread that is browned by heat"]
-var nature=["mountains","rainbow","flowers","waterfall","volcano","lake","valley","desert","ocean","river"];
-var natureHint=["Raised part of the earth","Seven colours in the sky","That bloom in spring","A natural attraction with flowing water from above","A mountain that can erupt with lava and fire","A natural water body surrounded by land","A low area of land between mountains or hills","A very dry place with sand","The five large bodies of water on earth","A natural flow of water that moves in one direction"]
-var technology=["password","antivirus","laptop","software","artificialintelligence","cybersecurity","bluetooth","headphones","firewall","javascript"];
-var technologyHint=["Used for security reasons","Protects the computers","A portable computer used for work or study","Programs and applications that run on a computer","Technology that allows machines to think and learn like humans","Protection of computers and data from hackers","Wireless technology used to connect devices over short distances","A device worn on ears to listen to sound","A security system that blocks unauthorized access to a network","A programming language used to make web pages attractive"]
+var animals = ["tiger","rabbit","zebra","lion","monkey","kangaroo","dolphin","elephant","giraffe","frog","penguin","panda","crocodile","horse","dog","leopard","fox","buffalo","donkey","hamster"];
+var animalsHint=["A big striped wild cat","A small animal with long ears","An animal with black and white stripes","known as the king of jungle","An animal that climbs trees and likes bananas","An animal that jumps and has a pouch","A smart sea animal that swims and jumps out of water","The largest land animal with a trunk","Tall animal with a very long neck","An amphibian that lives on land and in water","Bird that cannot fly","Black and white bear","Large reptile with sharp teeth","Animal used for riding","Common pet animal","Wild cat with spots","Clever wild animal","Large farm animal","Animal used for carrying loads","Small pet animal"]
+var countries=["pakistan","sweden","qatar","china","turkey","afghanistan","switzerland","england","egypt","palestine","norway","australia","spain","greece","france","canada","brazil","portugal","japan","italy"];
+var countriesHint=["A country in south asia","Volvo","Hosted FIFA world cup 2022","Great wall","A country between Europe and Asia","Its capital is kabul","Its capital is Bern","Big Ben","Pyramids","Its capital is Jerusalem","Nordic country","Land of kangaroos","Its capital is Madrid","European country with many islands","Eiffel Tower","Home of Niagara Falls","Largest country in South America","Known for Cristiano Ronaldo","Famous for sushi","Famous for pizza"];
+var food=["pizza","burger","pasta","cake","sandwich","donuts","rice","noodles","muffins","toast","pancake","icecream","kebab","omelette","tacos","falafel","fries","hotdog","porridge","faloda"];
+var foodHint=["Italian food","A popular fast food made with a bun and meat inside","A type of italian food made from noodles","A sweet dessert often eaten on birthdays","A food made with bread and fillings in between","A sweet fried dessert usually shaped like a ring","A common food grain eaten in many countries","Long thin strips of dough made from flour","A small soft cake typically baked in a cup-shaped pan","Bread that is browned by heat","Flat sweet breakfast food","Cold sweet dessert","Grilled meat dish","Egg breakfast dish","Mexican folded food","Fried chickpea balls","Fried potato snack","Sausage in bread","Warm oat breakfast","Dessert with noodles and icecream"]
+var nature=["mountains","rainbow","flowers","waterfall","volcano","lake","valley","desert","ocean","river","forest","island","glacier","sunrise","sunset","cave","breeze","moonlight","thunder","lightning"];
+var natureHint=["Raised part of the earth","Seven colours in the sky","That bloom in spring","A natural attraction with flowing water from above","A mountain that can erupt with lava and fire","A natural water body surrounded by land","A low area of land between mountains or hills","A very dry place with sand","The five large bodies of water on earth","A natural flow of water that moves in one direction","Area full of trees","Land surrounded by water","Large mass of ice","Sun appearing in morning","Sun going down in evening","Natural underground space","Gentle wind","Light from the moon","Loud storm sound","Bright flash in the sky"]
+var technology=["password","antivirus","laptop","software","artificialintelligence","cybersecurity","bluetooth","headphones","firewall","javascript","hardware","database","internet","keyboard","smartphone","robot","server","cloud","smartwatch","coding"];
+var technologyHint=["Used for security reasons","Protects the computers","A portable computer used for work or study","Programs and applications that run on a computer","Technology that allows machines to think and learn like humans","Protection of computers and data from hackers","Wireless technology used to connect devices over short distances","A device worn on ears to listen to sound","A security system that blocks unauthorized access to a network","A programming language used to make web pages attractive","Physical computer parts","Organized data storage","Global network system","Used for typing","Modern mobile device","A type of automated machine","Provides network services","Online data storage","Watch connected to phone","Writing computer instructions"]
 
 //Create en element to connect to canvas
 var canvas= document.getElementById("hangMan");
@@ -126,7 +113,7 @@ function saveGame(){
 //localStorage.setItem("randomWord",randomWord);
 //localStorage.setItem("selectedHint",currentHint);
 
-//Saving current welcome and category messages
+//Saving current welcome,final and category messages
 savedMessage=document.getElementById("welcomeMessage").innerHTML;
 savedCategoryDisplay=document.getElementById("categoryDisplay").innerHTML;
 savedFinalMessage=document.getElementById("finalMessage").innerHTML;
@@ -138,15 +125,17 @@ string=JSON.stringify(storage);
 localStorage.setItem("storage",string);
 }
 
+
 //Function for loading saved game data after page refresh
 function loadGame(){
-  //randomWord=localStorage.getItem("randomWord"); 
- // currentHint=localStorage.getItem("selectedHint");
+//Tried for two items to see if data can be retrieved from local storage
+//randomWord=localStorage.getItem("randomWord"); 
+// currentHint=localStorage.getItem("selectedHint");
 
- //Retrieving saved array named "storage" (game data) from local storage
-  saved=localStorage.getItem("storage");
+//Retrieving saved array named "storage" (game data) from local storage
+saved=localStorage.getItem("storage");
 
-  //Stop function if array"storage" is empty.(no saved game data exists)
+//Stop function if array"storage" is empty.(no saved game data exists)
   if(saved==null){
     return;
   }
@@ -154,13 +143,12 @@ function loadGame(){
   storage=JSON.parse(saved);
 
   //A variable load=false is initialized at top and saved at storage array position 5.
-  //Stop loading (game data )if game is ended or user quit the game
+  //Stop loading (game data)if game is ended or user quit the game
   if(storage[5]==false){
     return;
   }
 
   //Restoring saved game values(Getting values back)
- 
   currentHint=storage[0];
   randomWord=storage[1];
   guessedWord=storage[2];//making it array
@@ -184,7 +172,7 @@ function loadGame(){
   savedFinalMessage=storage[20];
   
   
-  //
+  //Hiding mode buttons
   time.style.display="none";
   timeless.style.display="none";
   //Showing text for chances left and words guessed after loading
@@ -203,28 +191,28 @@ function loadGame(){
   //Restoring saved hint button state
   //if hint was not opened before refresh, show hint button
     if(!hintTrack){
-    document.getElementById("hint").style.display="block";
-    document.getElementById("hintButton").addEventListener("click",showHint);
+     document.getElementById("hint").style.display="block";
+     document.getElementById("hintButton").addEventListener("click",showHint);
     }
     //If hint was already opened before refresh, display saved hint text
     else
     {
-    document.getElementById("hint").style.display="block";
-    document.getElementById("hintText").innerHTML= currentHint;
-    document.getElementById("hintButton").style.display= "none";
+     document.getElementById("hint").style.display="block";
+     document.getElementById("hintText").innerHTML= currentHint;
+     document.getElementById("hintButton").style.display= "none";
     }
- //Displaying guessed correct letters and hidden letters with dashes on screen after refresh
-  document.getElementById("randomWord").innerHTML = guessedWord.join("");
+//Displaying guessed correct letters and hidden letters with dashes on screen after refresh
+document.getElementById("randomWord").innerHTML = guessedWord.join("");
 //Restoring and displaying saved remaining chances after refresh
-  document.getElementById("chancesMessage").innerHTML="chances left: "+chances+"/6";
-  // Restoring and displaying correct words guessed after refresh
-  document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
+document.getElementById("chancesMessage").innerHTML="chances left: "+chances+"/6";
+// Restoring and displaying correct words guessed after refresh
+document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
 
 //Restoring counter by calling count down function.Value of current time left is already restored in variable timeLeft
-if(counter){
+ if(counter){
   console.log("time left" +timeLeft);
   startCountDown();
-}
+ }
 //Create en element to connect to canvas
 canvas= document.getElementById("hangMan");
 //Get the 2D context of the canvas
@@ -236,39 +224,40 @@ ctx=canvas.getContext("2d");
 // Calculating number of wrong guesses made by player
 var wrongCount=6-chances;
 //Loop to redraw saved hangman body parts
-for(var i=0;i<=wrongCount;i++){
-drawHangman();
+ for(var i=0;i<=wrongCount;i++){
+  drawHangman();
 //Temporarily increasing chances value during redraw
-if(chances!=6){
-chances++;
-}
-}
+ if(chances!=6){
+  chances++;
+  }
+ }
 //Restoring original chances value after redraw loop
 chances=chances-wrongCount;
-//calling display function when page is refreshed in 5 seconds delay
-if(problem){
+//calling display function when page is refreshed in 5 seconds delay for loading next word.
+//This fixed the problem where the game got stuck after page refrsh in 5 seconds delay
+ if(problem){
   document.getElementById("hintText").innerHTML= "";
   wordsDisplay();
-}
-if(lastPageProblem){
+ }
+//calling showEndButtons function when page is refreshed in 5 seconds delay
+//This fixed the problem where the game got stuck after page refrsh in 5 seconds delay
+ if(lastPageProblem){
   console.log("in load function");
   document.getElementById("finalMessage").innerHTML= savedFinalMessage;
   showEndButtons();
-}
+ }
 //recolouringKeypad();
 //calling functions to show keypad
 showKeypad();
 recolouringKeypad();
 }
 
+
 //Calling loadGame function when page is refreshed
 window.onload=function(){
   console.log("windows");
-  
   loadGame();
 };
-
-
 
 
 //creating function for time based game
@@ -301,7 +290,8 @@ function withoutTime(){
   //Here ,saving welcomeMessage in local storage via saveGame
    saveGame();
 }
-  
+ 
+
 //Function for starting the game
 function startGame() {
 //Getting selected category from radio buttons
@@ -329,6 +319,7 @@ function startGame() {
   //This function gets the array of 10 words and corresponding hint array of selected category 
   selectCategory(category);
   }
+
 
 //Function for selection of category
 function selectCategory(){
@@ -399,8 +390,6 @@ function selectCategory(){
 }
 
 
-
-
 //Defining the function to show buttons to the user(keypad)
 function showKeypad(){
 
@@ -465,7 +454,8 @@ function showKeypad(){
     }
       }
 
-//defining function for getting keys from keyboard
+
+//Defining function for getting keys from keyboard
 function getKey(event){
   //stop processing input if game has ended to prevent further actions(like alert function)
   if(gameEnded){
@@ -510,6 +500,7 @@ saveGame();
 
 //Making a function to select the random word
 function wordsDisplay(){
+//Assigning values to the variables 
 load=true;
 chances=6;
 problem=false;
@@ -518,6 +509,7 @@ correctButtons=[];
 wrongButtons=[];
 ctx.clearRect(0,0,canvas.width,canvas.height);
 drawHangman();
+//Updating and displaying the game information on the screen
 document.getElementById("quit").style.display="block";
 document.getElementById("quit").addEventListener("click",quitDisplay);
 document.getElementById("chancesMessage").innerHTML="chances left: "+chances+"/6";
@@ -565,6 +557,7 @@ document.getElementById("categoryDisplay").innerHTML="Find the hidden word.The c
     saveGame();
 }
 
+
 //Making a function for validation
 function wordChecking(char){
     
@@ -600,11 +593,10 @@ function wordChecking(char){
           drawHangman();
           saveGame();
         }
-//}
+
 //Showing the final result if the player guessed the right word
 if(!guessedWord.includes("-")){
     console.log("you win word was;" ,randomWord);
-  
     document.getElementById("finalMessage").innerHTML= "<br>" +"You guessed the right word. Next word is..";
     winningCount++;
     document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
@@ -615,14 +607,12 @@ if(!guessedWord.includes("-")){
       if(winningCount==5){
         document.getElementById("finalMessage").innerHTML= "<br><br>" +"You have won the game";
         document.getElementById("quit").disabled=true;
-        //disableButtons();
         disableButtons();
-       document.getElementById("hintButton").disabled=true;
+        document.getElementById("hintButton").disabled=true;
         gameEnded=true;
         //Stop the times because game is ended
         //clearInterval(time);
         clearInterval(time);
-        //load=false;
         lastPageProblem=true;
         counter=false;
         saveGame();
@@ -651,12 +641,6 @@ if(!guessedWord.includes("-")){
            },5000);  //5000 milliseconds = 5 seconds
            }
       }
-
-
-
-    //Disable the buttons because the game is over
-    //disableButtons();
-   
 
 //showing the final result if the player lose the game
 else if(chances<=0) {
@@ -687,6 +671,7 @@ else if(chances<=0) {
    return found; 
 }
 
+
 //Defining the disable function.Making all the keys disabled after the game is over
 function disableButtons(){
     var buttons=document.getElementById("alphabets").getElementsByTagName("button");
@@ -694,6 +679,7 @@ function disableButtons(){
         buttons[i].disabled = true;
     }
 }
+
 
 //Defining the hint function.Function to display hint for the current word
 function showHint(){
@@ -708,6 +694,8 @@ function showHint(){
     saveGame();
     
 }
+
+
 //Defining the enableButtons function.This function is called to make all the keys enabled after guessing the word right
 function enableButtons(){
     var buttons=document.getElementById("alphabets").getElementsByTagName("button");
@@ -721,6 +709,8 @@ function enableButtons(){
     }
 }
 
+
+//Making a function to start the countdown timer of two minutes
 function startCountDown(){
   //stop any previous timer before starting a new one to avoid multiple timers running together
     clearInterval(time);
@@ -782,6 +772,9 @@ function startCountDown(){
 
 
 }
+
+
+//Making a function to display end game buttons
 function showEndButtons(){
   //Set load false so here refresh page is not working
   //load=false;
@@ -803,18 +796,19 @@ function showEndButtons(){
   document.getElementById("chancesMessage").style.display="none";
   document.getElementById("words").style.display="none";
   document.getElementById("time").style.display="none";
-    //document.getElementById("finalMessage").style.display="none";
+  //document.getElementById("finalMessage").style.display="none";
   document.getElementById("alphabets").style.display="none";
   document.getElementById("randomWord").style.display="none";
   document.getElementById("quit").style.display="none";
   ctx.clearRect(0,0,canvas.width,canvas.height);
-
-
 }
+
+
+//Making a function to exit the game and showing thankyou message
 function exitGame(){
 //Showing message on the screen  
 output.innerText="Thankyou for playing the game";
-//Hiding all other elements
+///Hiding all other elements
 //Hiding the final message(win or lose message)
 document.getElementById("finalMessage").style.display="none";
 //Hiding exit and restart buttons
@@ -825,6 +819,8 @@ document.getElementById("welcomeMessage").style.display="none";
 //Clear all data from local storage
 localStorage.clear();
 }
+
+
 //Making a function to load the game again
   function restartGame(){
     //clear the local storage
@@ -833,6 +829,9 @@ localStorage.clear();
     location.reload();
     
 }
+
+
+//Function to draw the hangman drawing using canvas
 function drawHangman(){
   
    
@@ -941,6 +940,7 @@ ctx.beginPath();
 }
 }
 
+
 //Function for restoring keypad button colours(green and red) and states(disabled) after refresh
 function recolouringKeypad(){
 //Getting all alphabet buttons from keypad.
@@ -976,6 +976,7 @@ if(wrongButtons.includes(reusedButtons[i].innerHTML.toLowerCase())){
 
 }
 
+
 //Function for quitting the game
 function quitDisplay(){
   //Asking user for quit confirmation
@@ -1005,4 +1006,5 @@ function quitDisplay(){
   localStorage.clear();
   }
 }
+
 </script> 
