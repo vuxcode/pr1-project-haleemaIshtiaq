@@ -67,6 +67,7 @@ var gameEnded= false;
 var counter=false;
 var counter=false;
 var timeLeft=120;
+var gettingKey=true;
 
 //Variables used for refresh feature
 var correctButtons=[];
@@ -83,7 +84,7 @@ var savedMessage,savedCategoryDisplay,savednameCategory,savedFinalMessage,string
 //Categories and their corresponding hint arrays
 var animals = ["tiger","rabbit","zebra","lion","monkey","kangaroo","dolphin","elephant","giraffe","frog","penguin","panda","crocodile","horse","dog","leopard","fox","buffalo","donkey","hamster"];
 var animalsHint=["A big striped wild cat","A small animal with long ears","An animal with black and white stripes","known as the king of jungle","An animal that climbs trees and likes bananas","An animal that jumps and has a pouch","A smart sea animal that swims and jumps out of water","The largest land animal with a trunk","Tall animal with a very long neck","An amphibian that lives on land and in water","Bird that cannot fly","Black and white bear","Large reptile with sharp teeth","Animal used for riding","Common pet animal","Wild cat with spots","Clever wild animal","Large farm animal","Animal used for carrying loads","Small pet animal"]
-var countries=["pakistan","sweden","qatar","china","turkey","afghanistan","switzerland","england","egypt","palestine","norway","australia","spain","greece","france","canada","brazil","portugal","japan","italy"];
+var countries=["Pakistan","Sweden","Qatar","China","Turkey","Afghanistan","Switzerland","England","Egypt","Palestine","Norway","Australia","Spain","Greece","France","Canada","Brazil","Portugal","Japan","Italy"];
 var countriesHint=["A country in south asia","Volvo","Hosted FIFA world cup 2022","Great wall","A country between Europe and Asia","Its capital is kabul","Its capital is Bern","Big Ben","Pyramids","Its capital is Jerusalem","Nordic country","Land of kangaroos","Its capital is Madrid","European country with many islands","Eiffel Tower","Home of Niagara Falls","Largest country in South America","Known for Cristiano Ronaldo","Famous for sushi","Famous for pizza"];
 var food=["pizza","burger","pasta","cake","sandwich","donuts","rice","noodles","muffins","toast","pancake","icecream","kebab","omelette","tacos","falafel","fries","hotdog","porridge","faloda"];
 var foodHint=["Italian food","A popular fast food made with a bun and meat inside","A type of italian food made from noodles","A sweet dessert often eaten on birthdays","A food made with bread and fillings in between","A sweet fried dessert usually shaped like a ring","A common food grain eaten in many countries","Long thin strips of dough made from flour","A small soft cake typically baked in a cup-shaped pan","Bread that is browned by heat","Flat sweet breakfast food","Cold sweet dessert","Grilled meat dish","Egg breakfast dish","Mexican folded food","Fried chickpea balls","Fried potato snack","Sausage in bread","Warm oat breakfast","Dessert with noodles and icecream"]
@@ -118,7 +119,7 @@ savedMessage=document.getElementById("welcomeMessage").innerHTML;
 savedCategoryDisplay=document.getElementById("categoryDisplay").innerHTML;
 savedFinalMessage=document.getElementById("finalMessage").innerHTML;
 //Storing all the values which should be remain after refresh
-storage=[currentHint,randomWord,guessedWord,chances,winningCount,load,savedMessage,savedCategoryDisplay,selectedCategory,category,usedIndexes,selectedHint,timeLeft,counter,correctButtons,wrongButtons,key,hintTrack,problem,lastPageProblem,savedFinalMessage];
+storage=[currentHint,randomWord,guessedWord,chances,winningCount,load,savedMessage,savedCategoryDisplay,selectedCategory,category,usedIndexes,selectedHint,timeLeft,counter,correctButtons,wrongButtons,key,hintTrack,problem,lastPageProblem,savedFinalMessage,gettingKey];
 //converting array into string format for local storage
 string=JSON.stringify(storage);
 //Saving array "storage" (game data) in browser local storage
@@ -170,6 +171,7 @@ saved=localStorage.getItem("storage");
   problem=storage[18];
   lastPageProblem=storage[19];
   savedFinalMessage=storage[20];
+  gettingKey=storage[21];
   
   
   //Hiding mode buttons
@@ -458,7 +460,7 @@ function showKeypad(){
 //Defining function for getting keys from keyboard
 function getKey(event){
   //stop processing input if game has ended to prevent further actions(like alert function)
-  if(gameEnded){
+  if(gameEnded==true || gettingKey==false){
     return;
   }
   //converting pressed key to lower case
@@ -501,6 +503,7 @@ saveGame();
 //Making a function to select the random word
 function wordsDisplay(){
 //Assigning values to the variables 
+gettingKey=true;
 load=true;
 chances=6;
 problem=false;
@@ -524,8 +527,8 @@ document.getElementById("categoryDisplay").innerHTML="Find the hidden word.The c
     //Making the hint button visible for the next word
     document.getElementById("hintButton").style.display="block";
     document.getElementById("hintButton").addEventListener("click",showHint);
+     enableButtons();
     //checking if user guessed 5 words correctly then display message that user has won 
-    enableButtons();
     if(winningCount == 5){
       document.getElementById("finalMessage").innerHTML+= "<br><br>" +"You have won the game";
       disableButtons();
@@ -571,14 +574,21 @@ function wordChecking(char){
         console.log(char);
         
         //Checking for validation
-        if(randomWord.includes(char)){
+        if(randomWord.toLowerCase().includes(char)){
             found=true;
             correctButtons.push(char);
           for(var i=0; i< randomWord.length;i++){
-            if(randomWord[i]==char){
-                guessedWord[i]=char;
+            if(randomWord[i].toLowerCase()==char.toLowerCase()){
+                guessedWord[i]=char.toLowerCase();
             }
-        
+         //Adding this to make the first letter capital for countries.
+         //As taken all letters small   
+           if(countries.includes(randomWord) && randomWord[0].toLowerCase()==char)  {
+                char=char.toUpperCase();
+                guessedWord[0]=char;
+               // randomWord[0]=char;
+               console.log("in console"); 
+             }
           console.log("correct:", guessedWord.join("")); 
           //Writing the correct letter on the screen 
           document.getElementById("randomWord").innerHTML = guessedWord.join("") ;
@@ -600,7 +610,10 @@ if(!guessedWord.includes("-")){
     document.getElementById("finalMessage").innerHTML= "<br>" +"You guessed the right word. Next word is..";
     winningCount++;
     document.getElementById("words").innerHTML="words guessed: "+winningCount+"/5";
+    //Not accepting keys from user in 5 min pause before loading the next word
+    gettingKey=false;
     saveGame();
+
     //Disable keypad during pause before loading the next word
       disableButtons();
       //Showing the result if player guessed all five words correctly
