@@ -8,7 +8,7 @@ For example: -->
 
  - *Planned the game design.*
 
-      -  listed the main features.
+      -  Listed the main features.
       -  Designed a  basic flowchart for the game flow.
       -  Planned how the Hangman Game interface should looks.
   
@@ -55,8 +55,8 @@ For example: -->
       - Improved win and lose messages and displayed them on the screen.
 
 ## 2022-04-09 10:45 Worked for 3 hours.   
- - *worked on hint system .*
-      - Created a showHint function.
+ - *Worked on hint system .*
+      - Created a `showHint` function.
       - Created an array to provide hints for each word.
       - Developed logic to display the correct hint based on the selected word.
  - *Added hover effects on keypad buttons and added pointer cursor to buttons.*
@@ -64,30 +64,30 @@ For example: -->
  - *Added a `div` to show remaining chances on the screen dynamically.*     
 
 ## 2022-04-16 09:00 Worked for 3 hours.    
- - *More worked on hint system.*
+ - *Worked more on the hint system.*
       - Created a separate`div` with id `hintText` to show hints clearly on screen.
       - Added logic to hide the hint button after use.
-      - Made Hint button disabled if user guess the word wrong and not used the hint.
+      - Disabled the hint button if the user guessed the word wrong and did not use the hint.
  - *Improved game flow.*
-      - Loads the next word after a correct guess.
-      - clears previous messages and hint before showing the next word.
-      - Prevents repitition of choosing the same random word with help of index tracking.
+      - Loaded the next word after a correct guess.
+      - Cleared previous messages and hint before showing the next word.
+      - Prevented repitition of choosing the same random word with help of index tracking.
  - *Implemented win condition logic.*
-      - Display the final message if user guess 5 consecutive words correctly.
-      - Used `setTimeout()` to delay 5 seconds in loading the next word so user can see the feedback.
-      - Stops the game and disable the buttons when game ends.
+      - Displayed the final message if the user guesses 5 consecutive words correctly.
+      - Used `setTimeout()` to delay loading the next word by 5 seconds so the user can see the feedback.
+      - Stopped the game and disabled the buttons when the game ends.
  - *Implemented word tracking logic and created a div to display number of correctly guessed words on screen.*   
  - *Added `enableButtons` function to enable keypad buttons for next loaded word.*     
 
 ## 2022-04-17 02:00 Worked for 3 hours.     
  - *Implemented a 2-minute countdown timer for Time Based mode.*
-      - Created a startCountDown function.
+      - Created a `startCountDown` function.
       - Created a `div` to display the counter on screen.
       - Stopped the timer using `clearInterval()` function when time is over and displayed message of time over on screen.
 
 ## 2022-04-20 01:00 Worked for 1 hour.      
  - *Created restart and exit buttons.*
-      - showRestart function is added to hide all other game elements and display restart and exit buttons.
+      - `showEndButtons` function is added to hide all other game elements and display restart and exit buttons.
       - Added event listeners for both buttons.
       - Exit button displays a thankyou message.
       - Restart button reloads the game.
@@ -101,14 +101,14 @@ For example: -->
 
 ## 2022-04-28 09:00 Worked for 4 hours.  
  - *Worked on keyboard support.*
-      - Added keyboard input so users can eneter letters directly through keyboard.
+      - Added keyboard input so users can enter letters directly through keyboard.
       - Synchronized keyboard input with keypad buttons on screen.
       - Implemented validation to allow only single aplphabet characters.
       - Added an alert message for already pressed keys.
       
  - *Worked on layout and readability.*
       - Increased font size for better word display.
-      - positioned the hangman canvas at the top right. 
+      - Positioned the hangman canvas at the top right. 
       - Enhanced the hangman drawing by increasing line thickness and adding rounded line ends and smoother corners.  
 
 ## 2022-04-30 02:00 Worked for 3 hours.    
@@ -125,9 +125,9 @@ For example: -->
 
 ## 2022-05-04 to 2022-05-11 09:15 Worked for approx 6 to 8 hours.   
  - *Added refresh feature.*   
-      - Created saveGame() function for saving game data.
-      - Created loadGame() function for restoring saved values.
-      - Created recolouringKeypad() function for restoring keypad buttons colours and states after refresh.
+      - Created `saveGame()` function for saving game data.
+      - Created `loadGame()` function for restoring saved values.
+      - Created `recolouringKeypad()` function for restoring keypad buttons colours and states after refresh.
       - Updated other functions to support the refresh feature.
       - Fixed the bugs related to page refresh.
                               
