@@ -71,7 +71,7 @@
 <br><br>
 
 <!--Creating button to start the game after selecting a catogory-->
-<button onClick="startGame()">Start Game</button>
+<button onClick="startGame()" style="cursor:pointer;">Start Game</button>
 
 </div>
 
@@ -109,7 +109,7 @@ var savedMessage,savedCategoryDisplay,savednameCategory,savedFinalMessage,string
 var animals = ["tiger","rabbit","zebra","lion","monkey","kangaroo","dolphin","elephant","giraffe","frog","penguin","panda","crocodile","horse","dog","leopard","fox","buffalo","donkey","hamster"];
 var animalsHint=["A big striped wild cat","A small animal with long ears","An animal with black and white stripes","known as the king of jungle","An animal that climbs trees and likes bananas","An animal that jumps and has a pouch","A smart sea animal that swims and jumps out of water","The largest land animal with a trunk","Tall animal with a very long neck","An amphibian that lives on land and in water","Bird that cannot fly","Black and white bear","Large reptile with sharp teeth","Animal used for riding","Common pet animal","Wild cat with spots","Clever wild animal","Large farm animal","Animal used for carrying loads","Small pet animal"]
 var countries=["Pakistan","Sweden","Qatar","China","Turkey","Afghanistan","Switzerland","England","Egypt","Palestine","Norway","Australia","Spain","Greece","France","Canada","Brazil","Portugal","Japan","Italy"];
-var countriesHint=["A country in south asia","Volvo","Hosted FIFA world cup 2022","Great wall","A country between Europe and Asia","Its capital is kabul","Its capital is Bern","Big Ben","Pyramids","Its capital is Jerusalem","Nordic country","Land of kangaroos","Its capital is Madrid","European country with many islands","Eiffel Tower","Home of Niagara Falls","Largest country in South America","Known for Cristiano Ronaldo","Famous for sushi","Famous for pizza"];
+var countriesHint=["A country in South Asia","Volvo","Hosted FIFA world cup 2022","Great wall","A country between Europe and Asia","Its capital is kabul","Its capital is Bern","Big Ben","Pyramids","Its capital is Jerusalem","Nordic country","Land of kangaroos","Its capital is Madrid","European country with many islands","Eiffel Tower","Home of Niagara Falls","Largest country in South America","Known for Cristiano Ronaldo","Famous for sushi","Famous for pizza"];
 var food=["pizza","burger","pasta","cake","sandwich","donuts","rice","noodles","muffins","toast","pancake","icecream","kebab","omelette","tacos","falafel","fries","hotdog","porridge","faloda"];
 var foodHint=["Italian food","A popular fast food made with a bun and meat inside","A type of italian food made from noodles","A sweet dessert often eaten on birthdays","A food made with bread and fillings in between","A sweet fried dessert usually shaped like a ring","A common food grain eaten in many countries","Long thin strips of dough made from flour","A small soft cake typically baked in a cup-shaped pan","Bread that is browned by heat","Flat sweet breakfast food","Cold sweet dessert","Grilled meat dish","Egg breakfast dish","Mexican folded food","Fried chickpea balls","Fried potato snack","Sausage in bread","Warm oat breakfast","Dessert with noodles and icecream"]
 var nature=["mountains","rainbow","flowers","waterfall","volcano","lake","valley","desert","ocean","river","forest","island","glacier","sunrise","sunset","cave","breeze","moonlight","thunder","lightning"];
@@ -644,6 +644,7 @@ if(!guessedWord.includes("-")){
       if(winningCount==5){
         document.getElementById("finalMessage").innerHTML= "<br><br>" +"You have won the game";
         document.getElementById("quit").disabled=true;
+         document.getElementById("quit").style.cursor="default";
         disableButtons();
         document.getElementById("hintButton").disabled=true;
         gameEnded=true;
@@ -685,6 +686,7 @@ else if(chances<=0) {
     
     document.getElementById("finalMessage").innerHTML = "<br><br>" +"You lose the game...The word is " +randomWord;
     document.getElementById("quit").disabled=true;
+     document.getElementById("quit").style.cursor="default";
     saveGame();
     //Disable the buttons because the game is over
    disableButtons();
